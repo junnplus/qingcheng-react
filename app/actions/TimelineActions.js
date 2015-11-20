@@ -1,10 +1,8 @@
 var Reflux = require('reflux');
 
-var TopicsActions = Reflux.createActions([
+var TimelineActions = Reflux.createActions([
     'fetchTimeline',
-    'fetchTopics',
-    'fetchCafeTopics',
-    'fetchUserTopics'
+    'fetchTopics'
 ]);
 
-module.exports = TopicsActions;
+module.exports = TimelineActions;
