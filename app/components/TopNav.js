@@ -2,8 +2,12 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 var Logo = require('./Logo');
+var ShowLoginActions = require('../actions/ShowLoginActions');
 
 var TopNav = React.createClass({
+    handleShowLogin: function() {
+        ShowLoginActions.showLogin(true);
+    },
     render: function() {
         return (
             <div className="top-nav">
@@ -18,7 +22,7 @@ var TopNav = React.createClass({
                     </div>
                     <div className="site-account">
                         <div className="nav">
-                            <button className="button">Log in</button>
+                            <button className="button" onClick={this.handleShowLogin}>Log in</button>
                         </div>
                     </div>
                 </div>
