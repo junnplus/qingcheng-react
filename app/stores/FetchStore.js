@@ -1,6 +1,5 @@
 var Reflux = require('reflux');
 var FetchActions = require('../actions/FetchActions');
-var $ = require('jquery');
 
 var FetchStore = Reflux.createStore({
     init: function() {
