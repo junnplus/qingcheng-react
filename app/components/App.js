@@ -5,6 +5,7 @@ var RouteHandler = ReactRouter.RouteHandler;
 var Overlay = require('./Overlay');
 var LoginForm = require('./LoginForm');
 var ShowLoginStore = require('../stores/ShowLoginStore');
+var Footer = require('./Footer');
 
 var TopNav = require('./TopNav');
 
@@ -25,6 +26,7 @@ var App = React.createClass({
             <div>
                 <TopNav />
                 {this.props.children}
+                <Footer />
                 {overlay}
             </div>
         );
