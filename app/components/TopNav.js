@@ -17,7 +17,7 @@ var TopNav = React.createClass({
                             <Logo />
                         </a>
                         <nav>
-                            <Link to="/c/about"> About </Link>
+                            <a href="/c/about"> About </a>
                         </nav>
                     </div>
                     <div className="site-account">
