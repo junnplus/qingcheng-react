@@ -15,7 +15,7 @@ var CafesStore = Reflux.createStore({
 		api.cafe.list(function(resp) {
           	this.cafes = resp.data;
             this.trigger(this.cafes);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
       	}.bind(this));
     },
 });

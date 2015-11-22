@@ -4,6 +4,7 @@ var Header = require('./Header');
 var CafeActions = require('../actions/CafeActions');
 var CafeStore = require('../stores/CafeStore');
 var FetchStore = require('../stores/FetchStore');
+var FetchActions = require('../actions/FetchActions');
 var urlize = require('../filters').urlize;
 var TopicList = require('./TopicList');
 var TopicsActions = require('../actions/TopicsActions');
@@ -23,6 +24,8 @@ var CafePage = React.createClass({
         var oldSlug = prevProps.params.slug;
         var newSlug = this.props.params.slug;
         if ( oldSlug !== newSlug ) {
+            this.setState({topics: []});
+            FetchActions.fetching(true);
             CafeActions.load(newSlug);
             TopicsActions.fetchCafeTopics(newSlug);
         }

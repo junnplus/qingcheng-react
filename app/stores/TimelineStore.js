@@ -15,7 +15,7 @@ var TimelineStore = Reflux.createStore({
 			this.topics = this.topics.concat(resp.data);
             this.cursor = resp.cursor;
             this.trigger(this.topics);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
         }.bind(this));
     },
     onFetchTopics: function(params) {
@@ -25,7 +25,7 @@ var TimelineStore = Reflux.createStore({
 			this.topics = this.topics.concat(resp.data);
 			this.cursor = resp.cursor;
             this.trigger(this.topics);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
 		}.bind(this));
     },
 });

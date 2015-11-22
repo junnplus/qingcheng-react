@@ -17,7 +17,7 @@ var TopicsStore = Reflux.createStore({
 		api.cafe.topics(params.slug, params.page, function(resp) {
 			this.topics = resp.data;
             this.trigger(this.topics);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
         }.bind(this));
     },
     onFetchUserTopics: function(username) {
@@ -27,7 +27,7 @@ var TopicsStore = Reflux.createStore({
 			this.topics = resp.data;
             this.cursor = resp.cursor;
             this.trigger(this.topics);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
         }.bind(this));
     },
     onFetchTopics: function(username) {
@@ -35,7 +35,7 @@ var TopicsStore = Reflux.createStore({
 			this.topics = this.topics.concat(resp.data);
 			this.cursor = resp.cursor;
             this.trigger(this.topics);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
 		}.bind(this));
     },
 });

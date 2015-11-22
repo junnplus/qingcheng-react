@@ -3,6 +3,7 @@ var Reflux = require('reflux');
 var TopicItem = require('./TopicItem');
 var Logo = require('./Logo');
 var FetchStore = require('../stores/FetchStore');
+var FetchActions = require('../actions/FetchActions');
 var TopicsActions = require('../actions/TopicsActions');
 var TimelineActions = require('../actions/TimelineActions');
 
@@ -19,7 +20,7 @@ var TopicList = React.createClass({
         };
     },
     fetchMoreTopics: function(cursor) {
-        this.setState({fetching: true});
+        FetchActions.fetching(true);
         if (this.props.user) {
             TopicsActions.fetchTopics(this.props.user.username);
         } else {

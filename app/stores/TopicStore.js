@@ -24,7 +24,7 @@ var TopicStore = Reflux.createStore({
 		}).done(function(resp){
 			this.topic = resp;
             this.trigger(this.topic);
-            FetchActions.fetching();
+            FetchActions.fetching(false);
 		}.bind(this));
     },
 });
