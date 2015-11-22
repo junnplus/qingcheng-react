@@ -34,8 +34,8 @@ var TopicHentry = React.createClass({
 				<div className="container">
 					<h2 className="entry-title">{ topic.title }</h2>
 					<div className="entry-meta">
-						<a href={ "/c/" } aria-label={ "Published in " }>
-							<span className="cafe-logo" style={{"backgroundColor":"#222221"}}></span>
+						<a href={ "/c/" } aria-label={ "Published in " + cafe.name }>
+							<span className="cafe-logo" style={ this.cafeStyle() }></span>
 						</a>
 						<time title={ "Updated at " + topic.updated_at }>{ timeago(topic.created_at) }</time>
 						<a href={ "/u/" + user.username } aria-label={ "Published by " + user.username }>@{ user.username }</a>
