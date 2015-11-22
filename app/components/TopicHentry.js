@@ -34,7 +34,7 @@ var TopicHentry = React.createClass({
 				<div className="container">
 					<h2 className="entry-title">{ topic.title }</h2>
 					<div className="entry-meta">
-						<a href={ "/c/" } aria-label={ "Published in " + cafe.name }>
+						<a href={ "/c/" + cafe.slug } aria-label={ "Published in " + cafe.name }>
 							<span className="cafe-logo" style={ this.cafeStyle() }></span>
 						</a>
 						<time title={ "Updated at " + topic.updated_at }>{ timeago(topic.created_at) }</time>
@@ -55,7 +55,7 @@ var TopicHentry = React.createClass({
 					<div className="entry-footer clearfix">
 						<div className="topic-cafe column">
                             <div className="column-title">Published In</div>
-							<a href={ "/c/" } className="column-header">
+							<a href={ "/c/" + cafe.slug } className="column-header">
 								<span className="cafe-logo" style={ this.cafeStyle() }></span>
 								<div className="column-main">
 									<strong>{ cafe.name }</strong>
