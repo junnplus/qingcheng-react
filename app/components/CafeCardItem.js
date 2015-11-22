@@ -1,4 +1,5 @@
 var React = require('react');
+var urlize = require('../filters').urlize;
 
 var CafeCardItem = React.createClass({
     propTypes: {
@@ -15,17 +16,28 @@ var CafeCardItem = React.createClass({
             },
         };
     },
+    color: function() {
+        var style = this.props.cafe.style;
+        var rv = {};
+        if (style.color) {
+          	rv.backgroundColor = style.color;
+        }
+        if (style.cover) {
+          	rv.backgroundImage = 'url(' + style.cover + ')';
+        }
+        return rv;
+    },
     render: function() {
 		var cafe = this.props.cafe;
         return (
 			<div id={ "c-" + cafe.slug } className="cafe-card card">
-				<a className="cover" href={ "/c/" + cafe.slug }>
+				<a className="cover" style={ this.color() } href={ "/c/" + cafe.slug }>
 					<div className="cover__text">
-						<h3 className="card-title">{ cafe.slug }</h3>
+						<h3 className="card-title">{ cafe.name }</h3>
 					</div>
 				</a>
 				<div className="card-footer">
-					<div className="card-description">{ cafe.description }</div>
+					<div className="card-description">{ cafe.description ? urlize(cafe.description) : "No description" }</div>
 				</div>
 			</div>
         );
