@@ -34,9 +34,9 @@ function urlize(text) {
 
 exports.logo = function(style) {
   style = style || {};
-  var rv = {'background-color': style.color || '#222221'};
+  var rv = {'backgroundColor': style.color || '#222221'};
   if (style.logo) {
-    rv['background-image'] = 'url(' + style.logo + ')';
+    rv.backgroundImage = 'url(' + style.logo + ')';
   }
   return rv;
 };
