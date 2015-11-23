@@ -13,11 +13,11 @@ var TopNav = React.createClass({
             <div className="top-nav">
                 <div className="container">
                     <div className="site-nav clearfix">
-                        <a className="site-logo v-link-active" href="/">
+                        <Link to="/" className="site-logo v-link-active">
                             <Logo />
-                        </a>
+                        </Link>
                         <nav>
-                            <a href="/c/about"> About </a>
+                            <Link to="/c/about"> About </Link>
                         </nav>
                     </div>
                     <div className="site-account">
