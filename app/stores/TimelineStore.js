@@ -7,10 +7,12 @@ var TimelineStore = Reflux.createStore({
     listenables: TimelineActions,
 	getInitialState: function () {
         this.topics = [];
+        this.cursor = 0;
         return this.topics;
     },
     onFetchTimeline: function(params) {
         params = params || {};
+        params.cursor = this.cursor ? this.cursor : 0;
 		api.timeline(params, function(resp) {
 			this.topics = this.topics.concat(resp.data);
             this.cursor = resp.cursor;
@@ -18,15 +20,8 @@ var TimelineStore = Reflux.createStore({
             FetchActions.fetching(false);
         }.bind(this));
     },
-    onFetchTopics: function(params) {
-        params = params || {};
-		if (this.cursor) params.cursor = this.cursor;
-		api.timeline(params, function(resp) {
-			this.topics = this.topics.concat(resp.data);
-			this.cursor = resp.cursor;
-            this.trigger(this.topics);
-            FetchActions.fetching(false);
-		}.bind(this));
+    onResetCursor: function() {
+        this.cursor = 0;
     },
 });
 

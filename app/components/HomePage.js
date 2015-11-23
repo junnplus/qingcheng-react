@@ -19,6 +19,7 @@ var HomePage = React.createClass({
         if ( nextProps.location.search !== this.props.location.search ) {
             this.setState({topics: []});
             FetchActions.fetching(true);
+            TimelineActions.resetCursor();
             TimelineActions.fetchTimeline(nextProps.location.query);
         }
     },
@@ -29,7 +30,7 @@ var HomePage = React.createClass({
                 <div className="body">
 					<div className="split-view container">
 					  <div className="main-view">
-						<TopicList topics={this.state.topics} />
+						<TopicList topics={this.state.topics} query={this.props.location.query} />
 					  </div>
 					  <div className="sidebar-view">
 						<div className="widget">

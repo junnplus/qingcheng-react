@@ -24,7 +24,7 @@ var TopicList = React.createClass({
         if (this.props.user) {
             TopicsActions.fetchTopics(this.props.user.username);
         } else {
-            TimelineActions.fetchTopics();
+            TimelineActions.fetchTimeline(this.props.query);
         }
     },
     render: function() {
