@@ -19,7 +19,7 @@ var HomePage = React.createClass({
         if ( nextProps.location.search !== this.props.location.search ) {
             this.setState({topics: []});
             FetchActions.fetching(true);
-            TimelineActions.fetchTimeline(this.props.location.query);
+            TimelineActions.fetchTimeline(nextProps.location.query);
         }
     },
     render: function() {
