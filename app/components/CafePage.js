@@ -20,9 +20,9 @@ var CafePage = React.createClass({
 		CafeActions.load(slug);
         TopicsActions.fetchCafeTopics(slug);
     },
-    componentDidUpdate: function(prevProps) {
-        var oldSlug = prevProps.params.slug;
-        var newSlug = this.props.params.slug;
+    componentWillReceiveProps: function(nextProps) {
+        var newSlug = nextProps.params.slug;
+        var oldSlug = this.props.params.slug;
         if ( oldSlug !== newSlug ) {
             this.setState({topics: []});
             FetchActions.fetching(true);
