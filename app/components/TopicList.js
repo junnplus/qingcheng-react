@@ -28,8 +28,8 @@ var TopicList = React.createClass({
         }
     },
     render: function() {
-        var topics = this.props.topics.map(function(item){
-            return <TopicItem key={item.id} topic={item} />;
+        var topics = this.props.topics.map(function(item, index){
+            return <TopicItem key={index} topic={item} />;
         }.bind(this));
         var logo, loadMore;
         if ( this.state.fetching ) {
