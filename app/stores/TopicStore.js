@@ -1,6 +1,7 @@
 var Reflux = require('reflux');
 var TopicActions = require('../actions/TopicActions');
 var FetchActions = require('../actions/FetchActions');
+var CommentsActions = require('../actions/CommentsActions');
 var api = require('../api');
 
 var TopicStore = Reflux.createStore({
@@ -20,6 +21,7 @@ var TopicStore = Reflux.createStore({
 			this.topic = resp;
             this.trigger(this.topic);
             FetchActions.fetching(false);
+            CommentsActions.fetchTopicComments(tid);
         }.bind(this));
     },
     onLike: function(tid) {

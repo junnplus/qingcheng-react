@@ -5,7 +5,6 @@ var FetchStore = require('../stores/FetchStore');
 var TopicActions = require('../actions/TopicActions');
 var TopicStore = require('../stores/TopicStore');
 var CommentsStore = require('../stores/CommentsStore');
-var CommentsActions = require('../actions/CommentsActions');
 var Logo = require('./Logo');
 var CommentBox = require('./CommentBox');
 
@@ -18,7 +17,6 @@ var TopicPage = React.createClass({
 	componentDidMount: function(){
         var tid = this.props.params.tid;
         TopicActions.load(tid);
-        CommentsActions.fetchTopicComments(tid);
 	},
     render: function() {
 		var topic = this.state.topic;
