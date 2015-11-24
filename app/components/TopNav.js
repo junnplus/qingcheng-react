@@ -1,13 +1,22 @@
 var React = require('react');
+var Reflux = require('reflux');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
 var Logo = require('./Logo');
-var ShowLoginActions = require('../actions/ShowLoginActions');
+var ShowOverlayActions = require('../actions/ShowOverlayActions');
 var UserSessionActions = require('../actions/UserSessionActions');
+var UserNotificationsStore = require('../stores/UserNotificationsStore');
+var ShowOverlayStore = require('../stores/ShowOverlayStore');
 var UserAvatar = require('./UserAvatar');
+var UserNotifications = require('./UserNotifications');
+var Overlay = require('./Overlay');
 var Dropdown = require('./Dropdown');
 
 var TopNav = React.createClass({
+    mixins: [
+        Reflux.connect(UserNotificationsStore, "notifications"),
+        Reflux.connect(ShowOverlayStore, "showNotifications")
+    ],
 	getInitialState: function() {
         return {
             showUserDropdown: false,
@@ -28,7 +37,11 @@ var TopNav = React.createClass({
         this.setState({showUserDropdown:false});
     },
     handleShowLogin: function() {
-        ShowLoginActions.showLogin(true);
+        ShowOverlayActions.showLogin(true);
+    },
+    handleShowNotifications: function(e) {
+        e.preventDefault();
+        ShowOverlayActions.showNotifications(true);
     },
 	viewUserDropdown: function(e) {
         e.preventDefault();
@@ -40,6 +53,7 @@ var TopNav = React.createClass({
     },
     render: function() {
         var current_user = this.props.current_user;
+        var notifications = this.state.notifications;
         var dropdown;
         if ( this.state.showUserDropdown ) {
             dropdown = (
@@ -49,6 +63,18 @@ var TopNav = React.createClass({
                     <Link to="/account/settings" className="dropdown-item">Settings</Link>
                     <Link to="/session" className="dropdown-item" onClick={ this.handleLogout }>Logout</Link>
                 </Dropdown>
+            );
+        }
+        var notificationCount;
+        if ( notifications.length ) {
+            notificationCount = <Link className="tip notification" to="/" onClick={ this.handleShowNotifications } aria-label={ "You have " + notifications + " unread notifications" }></Link>;
+        }
+        var overlay;
+        if ( this.state.showNotifications && current_user.id ) {
+            overlay = (
+                <Overlay>
+                    <UserNotifications notifications={notifications}/>
+                </Overlay>
             );
         }
         var nav;
@@ -62,7 +88,8 @@ var TopNav = React.createClass({
             nav = (
 				<ul className="nav clearfix">
 					<li>
-						<a className="tip notification" onClick={ this.showNotifications } aria-label={ "You have " + " unread notifications" }></a>
+                        { notificationCount }
+                        { overlay }
 					</li>
 					<li>
 						<UserAvatar user={ current_user } onClick={ this.viewUserDropdown } />

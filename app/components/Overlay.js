@@ -1,5 +1,5 @@
 var React = require('react');
-var ShowLoginActions = require('../actions/ShowLoginActions');
+var ShowOverlayActions = require('../actions/ShowOverlayActions');
 
 var Overlay = React.createClass({
     componentDidMount: function() {
@@ -9,7 +9,7 @@ var Overlay = React.createClass({
         document.body.className = '';
     },
     handleHiddenLogin: function() {
-        ShowLoginActions.showLogin(false);
+        ShowOverlayActions.showLogin(false);
     },
     render: function() {
         return (

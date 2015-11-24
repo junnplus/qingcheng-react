@@ -1,6 +1,6 @@
 var Reflux = require('reflux');
 var UserActions = require('../actions/UserActions');
-var ShowLoginActions = require('../actions/ShowLoginActions');
+var ShowOverlayActions = require('../actions/ShowOverlayActions');
 var api = require('../api');
 
 var UserStore = Reflux.createStore({

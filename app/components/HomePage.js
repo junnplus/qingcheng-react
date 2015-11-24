@@ -24,6 +24,14 @@ var HomePage = React.createClass({
         }
     },
     render: function() {
+        var widget;
+        if ( this.props.current_user.id ) {
+            widget = (
+                <div className="widget">
+                  <a className="button button--green">New Topic</a>
+                </div>
+            );
+        }
         return (
             <div className="home-view">
                 <Header title="Python China" description="Welcome to Python China" path="home" />
@@ -33,9 +41,7 @@ var HomePage = React.createClass({
 						<TopicList topics={this.state.topics} query={this.props.location.query} />
 					  </div>
 					  <div className="sidebar-view">
-						<div className="widget">
-						  <a className="button button--green">New Topic</a>
-						</div>
+                        { widget }
 						<div className="site-sidebar"></div>
 					  </div>
 					</div>

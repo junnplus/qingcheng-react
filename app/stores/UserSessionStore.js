@@ -1,6 +1,7 @@
 var Reflux = require('reflux');
 var UserSessionActions = require('../actions/UserSessionActions');
-var ShowLoginActions = require('../actions/ShowLoginActions');
+var ShowOverlayActions = require('../actions/ShowOverlayActions');
+var UserNotificationsActions = require('../actions/UserNotificationsActions');
 var api = require('../api');
 
 var UserSessionStore = Reflux.createStore({
@@ -15,7 +16,8 @@ var UserSessionStore = Reflux.createStore({
         api.user.login(data, function(resp) {
             this.user = resp;
             this.trigger(this.user);
-            ShowLoginActions.showLogin(false);
+            UserNotificationsActions.fetchNotifications();
+            ShowOverlayActions.showLogin(false);
         }.bind(this));
     },
     onLogout: function() {
@@ -28,6 +30,7 @@ var UserSessionStore = Reflux.createStore({
         api.user.profile('me', function(resp) {
             this.user = resp;
             this.trigger(this.user);
+            UserNotificationsActions.fetchNotifications();
         }.bind(this));
     }
 });
