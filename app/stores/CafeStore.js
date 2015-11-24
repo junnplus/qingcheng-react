@@ -1,5 +1,6 @@
 var Reflux = require('reflux');
 var CafeActions = require('../actions/CafeActions');
+var TopicsActions = require('../actions/TopicsActions');
 var api = require('../api');
 
 var CafeStore = Reflux.createStore({
@@ -14,6 +15,7 @@ var CafeStore = Reflux.createStore({
 		api.cafe.view(slug, function(resp) {
 			this.cafe = resp;
             this.trigger(this.cafe);
+            TopicsActions.fetchCafeTopics(slug);
 		}.bind(this));
     },
 });
