@@ -2,7 +2,6 @@ var Reflux = require('reflux');
 var TopicsActions = require('../actions/TopicsActions');
 var FetchActions = require('../actions/FetchActions');
 var api = require('../api');
-var $ = require('jquery');
 
 var TopicsStore = Reflux.createStore({
     listenables: TopicsActions,

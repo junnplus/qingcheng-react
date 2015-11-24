@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 var TopicActions = require('../actions/TopicActions');
 var FetchActions = require('../actions/FetchActions');
-var $ = require('jquery');
+var api = require('../api');
 
 var TopicStore = Reflux.createStore({
     init: function() {
@@ -17,15 +17,11 @@ var TopicStore = Reflux.createStore({
         };
     },
     fetchTopic: function(tid) {
-		$.ajax({
-			type: 'get',
-			url: 'https://python-china.org/api/topics/' + tid,
-			dataType: 'json',
-		}).done(function(resp){
+        api.topic.view(tid, function(resp) {
 			this.topic = resp;
             this.trigger(this.topic);
             FetchActions.fetching(false);
-		}.bind(this));
+        }.bind(this));
     },
 });
 
