@@ -32,7 +32,7 @@ var TopicPage = React.createClass({
                             if ( obj.state.fetching ) {
                                 return <Logo clazz={ "loading center" } />;
                             } else {
-                                return <TopicHentry topic={ topic } />;
+                                return <TopicHentry topic={ topic } current_user={ current_user }/>;
                             }
                         }(this))
                     }

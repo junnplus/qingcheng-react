@@ -21,13 +21,10 @@ var TopicHentry = React.createClass({
 		return rv;
 	},
     render: function() {
+        var current_user = this.props.current_user;
 		var topic = this.props.topic;
 		var user = this.props.topic.user;
         var cafe = this.props.topic.cafes[0];
-        var webpage;
-        if (topic.webpage) {
-            webpage = <Webpage webpage={ topic.webpage } />;
-        }
         return (
 			<div className="hentry">
 
@@ -40,10 +37,16 @@ var TopicHentry = React.createClass({
 						<time title={ "Updated at " + topic.updated_at }>{ timeago(topic.created_at) }</time>
 						<a href={ "/u/" + user.username } aria-label={ "Published by " + user.username }>@{ user.username }</a>
 					</div>
-                    { webpage }
+                    {
+                        (function(obj){
+                            if (topic.webpage) {
+                                return <Webpage webpage={ topic.webpage } />;
+                            }
+                        }(this))
+                    }
                     <div className="entry-content yue" dangerouslySetInnerHTML={{ __html: topic.content }}></div>
                     <div className="entry-actions clearfix">
-                        <LikeButton />
+                        <LikeButton current_user={current_user} topic={topic}/>
 						<div className="more-actions">
                             <ShareButton />
 							<span>

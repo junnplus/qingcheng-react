@@ -2,8 +2,8 @@ var Reflux = require('reflux');
 
 var TopicActions = Reflux.createActions([
     'load',
-    'createTopic', 
-    'editTopic'
+    'like',
+    'unlike',
 ]);
 
 module.exports = TopicActions;
