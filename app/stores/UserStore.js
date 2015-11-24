@@ -1,11 +1,10 @@
 var Reflux = require('reflux');
 var UserActions = require('../actions/UserActions');
+var ShowLoginActions = require('../actions/ShowLoginActions');
 var api = require('../api');
 
 var UserStore = Reflux.createStore({
-    init: function() {
-        this.listenToMany(UserActions);
-    },
+    listenables: UserActions,
     getInitialState: function() {
         this.user = {};
         return this.user;
