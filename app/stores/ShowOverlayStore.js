@@ -12,7 +12,6 @@ var ShowOverlayStore = Reflux.createStore({
         this.trigger(this.show);
     },
     onShowNotifications: function(show) {
-        console.log(show);
         this.show = show; 
         this.trigger(this.show);
     }

@@ -3,8 +3,8 @@ var NoticeItem = require('./NoticeItem');
 
 var UserNotifications = React.createClass({
     render: function() {
-		var notifications = this.props.notifications.map(function(item){
-			return <NoticeItem key={item.id} notice={item} />;
+		var notifications = this.props.notifications.map(function(item, index){
+			return <NoticeItem key={index} notice={item} />;
 		}.bind(this));
         return (
 			<div className="notification-list">

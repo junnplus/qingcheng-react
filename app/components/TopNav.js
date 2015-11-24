@@ -54,29 +54,6 @@ var TopNav = React.createClass({
     render: function() {
         var current_user = this.props.current_user;
         var notifications = this.state.notifications;
-        var dropdown;
-        if ( this.state.showUserDropdown ) {
-            dropdown = (
-                <Dropdown handleClose={this.handleClose} handleChoose={this.handleChoose} >
-                    <Link className="dropdown-item" to={ "/u/" + current_user.username }>View Profile</Link>
-                    <div className="dropdown-divider"></div>
-                    <Link to="/account/settings" className="dropdown-item">Settings</Link>
-                    <Link to="/session" className="dropdown-item" onClick={ this.handleLogout }>Logout</Link>
-                </Dropdown>
-            );
-        }
-        var notificationCount;
-        if ( notifications.length ) {
-            notificationCount = <Link className="tip notification" to="/" onClick={ this.handleShowNotifications } aria-label={ "You have " + notifications + " unread notifications" }></Link>;
-        }
-        var overlay;
-        if ( this.state.showNotifications && current_user.id ) {
-            overlay = (
-                <Overlay>
-                    <UserNotifications notifications={notifications}/>
-                </Overlay>
-            );
-        }
         var nav;
         if (!current_user.username) {
             nav = (
@@ -88,12 +65,41 @@ var TopNav = React.createClass({
             nav = (
 				<ul className="nav clearfix">
 					<li>
-                        { notificationCount }
-                        { overlay }
+                        { 
+                            (function(obj){
+                                if ( notifications.length ) {
+                                    return <Link className="tip notification" to="/" onClick={ obj.handleShowNotifications } aria-label={ "You have " + notifications.length + " unread notifications" }></Link>;
+                                }
+                            }(this))
+                        }
+                        { 
+                            (function(obj){
+                                if ( obj.state.showNotifications && current_user.id ) {
+                                    return (
+                                        <Overlay>
+                                            <UserNotifications notifications={notifications}/>
+                                        </Overlay>
+                                    );
+                                }
+                            }(this))
+                        }
 					</li>
 					<li>
 						<UserAvatar user={ current_user } onClick={ this.viewUserDropdown } />
-                        { dropdown }
+                        { 
+                            (function(obj){
+                                if ( obj.state.showUserDropdown ) {
+                                    return (
+                                        <Dropdown handleClose={obj.handleClose} handleChoose={obj.handleChoose} >
+                                            <Link className="dropdown-item" to={ "/u/" + current_user.username }>View Profile</Link>
+                                            <div className="dropdown-divider"></div>
+                                            <Link to="/account/settings" className="dropdown-item">Settings</Link>
+                                            <Link to="/session" className="dropdown-item" onClick={ obj.handleLogout }>Logout</Link>
+                                        </Dropdown>
+                                    );
+                                }
+                            }(this))
+                        }
 					</li>
 				</ul>
             );
