@@ -20,7 +20,8 @@ var TimelineStore = Reflux.createStore({
             FetchActions.fetching(false);
         }.bind(this));
     },
-    onResetCursor: function() {
+    onResetTimeline: function() {
+        this.topics = [];
         this.cursor = 0;
     },
 });

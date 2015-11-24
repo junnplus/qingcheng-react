@@ -21,7 +21,7 @@ var UserAvatar = React.createClass({
         var user = this.props.user;
         var clazz = this.props.clazz ? this.props.clazz : "";
         return (
-            <Link to={ "/u/" + user.username } className={ clazz + " avatar" } aria-label={"View @" + user.username + " profile"}><img src={ user.avatar_url }></img></Link>
+            <Link to={ "/u/" + user.username } className={ clazz + " avatar" } aria-label={"View @" + user.username + " profile"} onClick={this.props.onClick}><img src={ user.avatar_url }></img></Link>
         );
     }
 });
