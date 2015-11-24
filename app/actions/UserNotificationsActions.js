@@ -1,7 +1,8 @@
 var Reflux = require('reflux');
 
 var UserNotificationsActions = Reflux.createActions([
-    'fetchNotifications'
+    'fetchNotifications',
+    'clearNotifications'
 ]);
 
 module.exports = UserNotificationsActions;
