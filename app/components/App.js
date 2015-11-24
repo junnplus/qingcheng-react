@@ -22,21 +22,17 @@ var App = React.createClass({
     },
     render: function() {
         var current_user = this.state.current_user;
-        var overlay;
-        if ( this.state.showLogin && !current_user.id) {
-            overlay = (
-                <Overlay>
-                    <LoginForm />
-                </Overlay>
-            );
-        }
-        var router = React.cloneElement(this.props.children, {current_user: current_user});
         return (
             <div>
                 <TopNav current_user={current_user} />
-                { router }
+                { React.cloneElement(this.props.children, {current_user: current_user}) }
                 <Footer />
-                {overlay}
+                {
+                    (function(obj){
+                        if (obj.state.showLogin && !current_user.id )
+                            return <Overlay><LoginForm /></Overlay>;
+                    }(this))
+                }
             </div>
         );
     }

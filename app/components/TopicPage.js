@@ -23,23 +23,27 @@ var TopicPage = React.createClass({
     render: function() {
 		var topic = this.state.topic;
         var current_user = this.props.current_user;
-        var logo, topicHentry;
-        if ( this.state.fetching ) {
-            logo = <Logo clazz={ "loading center" } />;
-        } else {
-            topicHentry = <TopicHentry topic={ topic } />;
-        }
-		var commentBox;
-		if (topic.id) {
-            commentBox = <CommentBox comments={this.state.comments} topic={topic} current_user={current_user} />;
-		}
+        var comments = this.state.comments;
         return (
 			<div className="body">
 				<div className="entry-view">
-                    { topicHentry } 
-                    { logo }
+                    {
+                        (function(obj){
+                            if ( obj.state.fetching ) {
+                                return <Logo clazz={ "loading center" } />;
+                            } else {
+                                return <TopicHentry topic={ topic } />;
+                            }
+                        }(this))
+                    }
 				</div>
-                { commentBox }
+                { 
+                    (function(obj){
+                        if (topic.id) {
+                            return <CommentBox comments={comments} topic={topic} current_user={current_user} />;
+                        }
+                    }(this)) 
+                }
 			</div>
         );
     }

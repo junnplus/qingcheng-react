@@ -24,14 +24,7 @@ var HomePage = React.createClass({
         }
     },
     render: function() {
-        var widget;
-        if ( this.props.current_user.id ) {
-            widget = (
-                <div className="widget">
-                  <a className="button button--green">New Topic</a>
-                </div>
-            );
-        }
+            var current_user = this.props.current_user;
         return (
             <div className="home-view">
                 <Header title="Python China" description="Welcome to Python China" path="home" />
@@ -41,7 +34,17 @@ var HomePage = React.createClass({
 						<TopicList topics={this.state.topics} query={this.props.location.query} />
 					  </div>
 					  <div className="sidebar-view">
-                        { widget }
+                        { 
+                            (function(obj){
+                                if ( current_user.id ) {
+                                    widget = (
+                                        <div className="widget">
+                                          <a className="button button--green">New Topic</a>
+                                        </div>
+                                    );
+                                }
+                            }(this)) 
+                        }
 						<div className="site-sidebar"></div>
 					  </div>
 					</div>
