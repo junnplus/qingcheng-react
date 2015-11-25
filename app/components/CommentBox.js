@@ -26,7 +26,7 @@ var CommentBox = React.createClass({
         return (
 			<div className="entry-view comment-box">
 				<div className="container">
-                    <CommentForm current_user={current_user}/>
+                    <CommentForm topic={this.props.topic} current_user={current_user}/>
                     { commentsCount }
                     { commentList }
 				</div>

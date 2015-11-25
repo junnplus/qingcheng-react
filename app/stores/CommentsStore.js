@@ -17,6 +17,13 @@ var CommentsStore = Reflux.createStore({
             this.trigger(this.comments);
         }.bind(this));
     },
+    onCreateTopicComment: function(id, payload, cb) {
+        api.comment.create(id, payload, function(resp) {
+          	this.comments = [resp].concat(this.comments);
+            this.trigger(this.comments);
+			cb && cb();
+        }.bind(this));
+    }
 });
 
 module.exports = CommentsStore;

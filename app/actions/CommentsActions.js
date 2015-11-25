@@ -2,7 +2,7 @@ var Reflux = require('reflux');
 
 var CommentsActions = Reflux.createActions([
      'fetchTopicComments',
-     'fetchComments',
+     'createTopicComment',
 ]);
 
 module.exports = CommentsActions;
