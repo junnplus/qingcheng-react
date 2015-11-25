@@ -1,12 +1,34 @@
 var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 var Webpage = require('./Webpage');
 var LikeButton = require('./LikeButton');
 var ShareButton = require('./ShareButton');
 var UserAvatar = require('./UserAvatar');
+var Dropdown = require('./Dropdown');
 var timeago = require('../filters').timeago;
 var urlize = require('../filters').urlize;
 
 var TopicHentry = React.createClass({
+    propTypes: {
+        topic: React.PropTypes.shape({
+            title: React.PropTypes.string.isRequired,
+            cafes: React.PropTypes.array.isRequired
+        }).isRequired,
+    },
+	getDefaultProps: function() {
+		return {
+		  topic: {
+              title: '',
+              cafes: []
+          }
+		};
+	},
+    getInitialState: function() {
+        return {
+            showEditDropdown: false
+        };
+    },
 	topicStyle: function() {
 		var cover = this.props.topic.info.cover;
 		if (!cover) return null;
@@ -20,6 +42,12 @@ var TopicHentry = React.createClass({
 		}
 		return rv;
 	},
+    handleShowEditDropdown: function() {
+        this.setState({showEditDropdown: true});
+    },
+    handleClose: function() {
+        this.setState({showEditDropdown: false});
+    },
     render: function() {
         var current_user = this.props.current_user;
 		var topic = this.props.topic;
@@ -31,11 +59,11 @@ var TopicHentry = React.createClass({
 				<div className="container">
 					<h2 className="entry-title">{ topic.title }</h2>
 					<div className="entry-meta">
-						<a href={ "/c/" + cafe.slug } aria-label={ "Published in " + cafe.name }>
+						<Link to={ "/c/" + cafe.slug } aria-label={ "Published in " + cafe.name }>
 							<span className="cafe-logo" style={ this.cafeStyle() }></span>
-						</a>
+						</Link>
 						<time title={ "Updated at " + topic.updated_at }>{ timeago(topic.created_at) }</time>
-						<a href={ "/u/" + user.username } aria-label={ "Published by " + user.username }>@{ user.username }</a>
+						<Link to={ "/u/" + user.username } aria-label={ "Published by " + user.username }>@{ user.username }</Link>
 					</div>
                     {
                         (function(obj){
@@ -49,9 +77,31 @@ var TopicHentry = React.createClass({
                         <LikeButton current_user={current_user} topic={topic}/>
 						<div className="more-actions">
                             <ShareButton />
-							<span>
-								<button className="button button--white tip" aria-label="Show edit options">
-								<i className="qc-icon-quill"></i> </button> </span>
+                            {
+                                (function(obj){
+                                    if( topic.user.id === current_user.id ) {
+                                        return (
+                                            <span>
+                                                <button className="button button--white tip" aria-label="Show edit options" onClick={obj.handleShowEditDropdown}>
+                                                    <i className="qc-icon-quill"></i> 
+                                                </button> 
+                                                {
+                                                    (function(_obj){
+                                                        if ( _obj.state.showEditDropdown ) {
+                                                            return (
+                                                                <Dropdown handleClose={_obj.handleClose}>
+                                                                    <Link to={ "/t/" + topic.id + "/edit" } className="dropdown-item">Edit</Link>
+                                                                    <a className="dropdown-item" href="/account/delete-topic/{{topic.id}}">Delete</a>
+                                                                </Dropdown>
+                                                            );
+                                                        }
+                                                    }(obj))
+                                                }
+                                            </span>
+                                        );
+                                    }
+                                }(this))
+                            }
 						</div>
                     </div>
 
