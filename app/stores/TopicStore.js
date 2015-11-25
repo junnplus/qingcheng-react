@@ -23,6 +23,12 @@ var TopicStore = Reflux.createStore({
             cb && cb();
         }.bind(this));
     },
+    onViewRaw: function(tid) {
+        api.topic.viewRaw(tid, function(resp) {
+			this.topic = resp;
+            this.trigger(this.topic);
+        }.bind(this));
+    },
     onLike: function(tid) {
         api.topic.like(tid, function() {
             this.topic.liked_by_me = true;

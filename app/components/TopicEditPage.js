@@ -10,7 +10,7 @@ var TopicEditPage = React.createClass({
     ],
 	componentDidMount: function(){
         var tid = this.props.params.tid;
-        TopicActions.load(tid);
+        TopicActions.viewRaw(tid);
 	},
     render: function() {
 		var topic = this.state.topic;
@@ -23,7 +23,7 @@ var TopicEditPage = React.createClass({
                         if (topic.id) {
                             return (
                                 <div className="container">
-                                    <TopicForm topic={topic} cafe={cafe} current_user={current_user}/>
+                                    <TopicForm topic={topic} cafe={cafe} current_user={current_user} type="update" />
                                 </div>
                             );
                         }

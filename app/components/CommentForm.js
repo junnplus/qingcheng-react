@@ -4,8 +4,18 @@ var UserAvatar = require('./UserAvatar');
 var ShowOverlayActions = require('../actions/ShowOverlayActions');
 
 var CommentForm = React.createClass({
+    getInitialState: function() {
+        return {
+            content: ''
+        };
+    },
     handleShowLogin: function() {
         ShowOverlayActions.showLogin(true);
+    },
+    handleChange: function(e) {
+        var newState = {};
+        newState[e.target.name] = e.target.value;
+        this.setState(newState);
     },
     render: function() {
         current_user = this.props.current_user;
@@ -24,7 +34,7 @@ var CommentForm = React.createClass({
                     }(this))
                 }
                 { currentUserAvatar }
-				<MarkdownArea clazz="comment-item" placeholder="Write your response" current_user={current_user}></MarkdownArea>
+				<MarkdownArea clazz="comment-item" placeholder="Write your response" current_user={current_user} content={ this.state.content } handleChange={ this.handleChange }></MarkdownArea>
                 { replyButton }
 			</form>
         );

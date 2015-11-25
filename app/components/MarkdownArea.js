@@ -7,24 +7,19 @@ var MarkdownArea = React.createClass({
     mixins: [
         Reflux.connect(MarkdownStore, "html"),
     ],
-    getInitialState: function() {
-        return {
-            content: '',
-        };
+    propTypes: {
+        value: React.PropTypes.string,
     },
     handleShowPreview: function(e) {
         e.preventDefault();
         if ( this.state.html ) {
             this.setState({html: ''});
         }
-        MarkdownActions.preview(this.state.content);
+        MarkdownActions.preview(this.props.content);
     },
     handleShowEdit: function(e) {
         e.preventDefault();
         this.setState({html: ''});
-    },
-    handleChange: function(e) {
-        this.setState({content: e.target.value});
     },
     render: function() {
         var current_user = this.props.current_user;
@@ -33,7 +28,7 @@ var MarkdownArea = React.createClass({
         };
         return (
 			<div className={ "markdown-area " + this.props.clazz }>
-				<textarea placeholder={ this.props.placeholder } aria-label={ this.props.placeholder } style={ !this.state.html ? {} : displayNone} onChange={this.handleChange}></textarea>
+				<textarea placeholder={ this.props.placeholder } aria-label={ this.props.placeholder } name="content" value={ this.props.content } style={ !this.state.html ? {} : displayNone} onChange={ this.props.handleChange || this.handleChange }></textarea>
 				<div className="markdown-preview" style={ this.state.html ? {} : displayNone} dangerouslySetInnerHTML={{ __html: this.state.html }}></div>
 				<div className="markdown-actions" style={ !this.state.html ? {} : displayNone}>
 					<a>Image</a>

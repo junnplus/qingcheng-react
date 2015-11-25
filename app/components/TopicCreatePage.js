@@ -18,7 +18,7 @@ var TopicCreatePage = React.createClass({
         return (
             <div className="fullpage">
                 <div className="container">
-                    <TopicForm cafe={cafe} current_user={current_user}/>
+                    <TopicForm cafe={cafe} current_user={current_user} type="create"/>
                 </div>
             </div>
         );
