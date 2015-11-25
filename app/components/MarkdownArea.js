@@ -32,7 +32,7 @@ var MarkdownArea = React.createClass({
             display: "none"
         };
         return (
-			<div className="markdown-area" className={ this.props.clazz }>
+			<div className={ "markdown-area " + this.props.clazz }>
 				<textarea placeholder={ this.props.placeholder } aria-label={ this.props.placeholder } style={ !this.state.html ? {} : displayNone} onChange={this.handleChange}></textarea>
 				<div className="markdown-preview" style={ this.state.html ? {} : displayNone} dangerouslySetInnerHTML={{ __html: this.state.html }}></div>
 				<div className="markdown-actions" style={ !this.state.html ? {} : displayNone}>
