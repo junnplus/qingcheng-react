@@ -1,24 +1,24 @@
 var React = require('react');
+var Reflux = require('reflux');
 var ReactDOM = require('react-dom');
 var MarkdownArea = require('./MarkdownArea');
 var UserAvatar = require('./UserAvatar');
 var ShowOverlayActions = require('../actions/ShowOverlayActions');
 var CommentsActions = require('../actions/CommentsActions');
+var ContentActions = require('../actions/ContentActions');
+var ContentStore = require('../stores/ContentStore');
 var shake = require('../utils').shake;
 
 var CommentForm = React.createClass({
-    getInitialState: function() {
-        return {
-            content: ''
-        };
-    },
+    mixins: [
+        Reflux.connect(ContentStore, "content"),
+    ],
     handleShowLogin: function() {
         ShowOverlayActions.showLogin(true);
     },
     handleChange: function(e) {
-        var newState = {};
-        newState[e.target.name] = e.target.value;
-        this.setState(newState);
+        ContentActions.sync(e.target.value);
+        this.setState({content: e.target.value});
     },
     handleFormSubmit: function(e) {
         e.preventDefault();
