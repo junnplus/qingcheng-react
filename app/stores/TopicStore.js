@@ -1,27 +1,26 @@
 var Reflux = require('reflux');
 var TopicActions = require('../actions/TopicActions');
 var FetchActions = require('../actions/FetchActions');
-var CommentsActions = require('../actions/CommentsActions');
 var api = require('../api');
 
 var TopicStore = Reflux.createStore({
     listenables: TopicActions,
     getInitialState: function() {
-        return {
-            topic: {
+        this.topic = {
+                title: '',
                 user: {},
                 webpage: {},
-                cafe: {},
+                cafes: [],
 				liked_by_me: false
-			}
-        };
+			};
+        return this.topic;
     },
-    onLoad: function(tid) {
+    onLoad: function(tid, cb) {
         api.topic.view(tid, function(resp) {
 			this.topic = resp;
             this.trigger(this.topic);
             FetchActions.fetching(false);
-            CommentsActions.fetchTopicComments(tid);
+            cb && cb();
         }.bind(this));
     },
     onLike: function(tid) {
