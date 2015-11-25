@@ -24,7 +24,7 @@ var HomePage = React.createClass({
         }
     },
     render: function() {
-            var current_user = this.props.current_user;
+        var current_user = this.props.current_user;
         return (
             <div className="home-view">
                 <Header title="Python China" description="Welcome to Python China" path="home" />
@@ -37,7 +37,7 @@ var HomePage = React.createClass({
                         { 
                             (function(obj){
                                 if ( current_user.id ) {
-                                    widget = (
+                                    return (
                                         <div className="widget">
                                           <a className="button button--green">New Topic</a>
                                         </div>
