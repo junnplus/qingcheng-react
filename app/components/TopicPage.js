@@ -7,6 +7,7 @@ var TopicStore = require('../stores/TopicStore');
 var CommentsStore = require('../stores/CommentsStore');
 var Logo = require('./Logo');
 var CommentBox = require('./CommentBox');
+var CommentsActions = require('../actions/CommentsActions');
 
 var TopicPage = React.createClass({
     mixins: [
@@ -16,7 +17,9 @@ var TopicPage = React.createClass({
     ],
 	componentDidMount: function(){
         var tid = this.props.params.tid;
-        TopicActions.load(tid);
+        TopicActions.load(tid, function(){
+            CommentsActions.fetchTopicComments(tid);
+        });
 	},
     render: function() {
 		var topic = this.state.topic;
