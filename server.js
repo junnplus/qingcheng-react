@@ -7,7 +7,8 @@ config.entry.app.unshift("webpack-dev-server/client?http://localhost:9090", "web
 config.devtool = 'eval';
 
 var proxy = {
-    "/api/*": {target: "http://python-china.org", host: "python-china.org"},
+    "/api/*": {target: "https://python-china.org", host: "python-china.org"},
+    "/session*": {target: "https://python-china.org", host: "python-china.org"},
 };
 
 var app = new WebpackDevServer(webpack(config), {
