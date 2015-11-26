@@ -9,20 +9,26 @@ var CommentsStore = Reflux.createStore({
         this.comments = [];
         return this.comments;
     },
-    onFetchTopicComments: function(id) {
+    onFetchTopicComments: function(tid) {
         cursor = this.cursor ? this.cursor : 0;
-        api.topic.comments(id, cursor, function(resp) {
+        api.topic.comments(tid, cursor, function(resp) {
 			this.comments = this.comments.concat(resp.data);
             this.cursor = resp.cursor;
             this.trigger(this.comments);
         }.bind(this));
     },
-    onCreateTopicComment: function(id, payload, cb) {
-        api.comment.create(id, payload, function(resp) {
+    onCreateTopicComment: function(tid, payload, cb) {
+        api.comment.create(tid, payload, function(resp) {
           	this.comments = [resp].concat(this.comments);
             this.trigger(this.comments);
 			cb && cb();
         }.bind(this));
+    },
+    onDeleteTopicComment: function(tid, cid) {
+	  	api.comment.delete(tid, cid, function() {
+            this.comments = [];
+            CommentsActions.fetchTopicComments(tid);
+	  	}.bind(this));
     }
 });
 

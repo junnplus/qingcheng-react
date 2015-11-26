@@ -152,8 +152,9 @@ exports.comment = {
     var url = '/api/topics/' + tid + '/comments';
     http.post(url, payload, cb);
   },
-  delete: function(comment, cb) {
-    http.del(this.url(comment), cb);
+  delete: function(tid, cid, cb) {
+    var url = '/api/topics/' + tid + '/comments/' + cid;
+    http.del(url, cb);
   },
   like: function(comment, cb) {
     http.post(this.url(comment) + '/likes', cb);

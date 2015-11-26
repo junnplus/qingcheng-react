@@ -9,8 +9,8 @@ var CommentBox = React.createClass({
     },
     render: function() {
         var current_user = this.props.current_user;
-        var comments = this.props.comments.map(function(item) {
-            return <CommentItem key={item.id} comment={item} />;
+        var comments = this.props.comments.map(function(item, index) {
+            return <CommentItem key={index} comment={item} current_user={current_user} />;
         }.bind(this));
         var commentsLength = this.props.comments.length;
         var commentsCount, commentList;
