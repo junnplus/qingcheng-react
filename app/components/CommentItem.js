@@ -6,20 +6,34 @@ var UserAvatar = require('./UserAvatar');
 var CommentsActions = require('../actions/CommentsActions');
 
 var CommentItem = React.createClass({
+    getInitialState: function () {
+        return {
+            isHide: false
+        };
+    },
     isOwner: function() {
         return this.props.current_user.id === this.props.comment.user.id;
     },
-    handleDeleteComment: function() {
+    handleToggleLike: function() {
+        var comment = this.props.comment;
+        if (comment.liked_by_me) {
+        } else {
+        }
+    },
+    handleFlagComment: function() {
         if (confirm('Are you sure to report this comment?')) {
+        }
+    },
+    handleDeleteComment: function() {
+        if (confirm('Are you sure to delete this comment?')) {
             CommentsActions.deleteTopicComment(this.props.comment.topic_id, this.props.comment.id);
         }
     },
     render: function() {
         var comment = this.props.comment;
         var user = comment.user;
-        var like_count;
         return (
-			<li id={ "c-" + comment.id } className="comment-item item-container">
+			<li id={ "c-" + comment.id } className={ !this.state.isHide ? "comment-item item-container" : "comment-item item-container comment-hide" }>
 				<UserAvatar user={ user }/>
 				<div className="comment-main item-content">
                     <div className="comment-info">
@@ -37,14 +51,14 @@ var CommentItem = React.createClass({
                             {
                                 (function(obj){
                                     if ( !obj.isOwner() ) {
-                                        return <a className="tip tip-west like-comment" role="button" aria-label="like this comment"><i className="qc-icon-heart"></i></a>;
+                                        return <a className="tip tip-west like-comment" onClick={ obj.handleToggleLike } role="button" aria-label="like this comment"><i className="qc-icon-heart"></i></a>;
                                     }
                                 }(this))
                             }
                             {
                                 (function(obj){
                                     if ( !obj.isOwner() ) {
-                                        return <a role="button" aria-label="report spam"><i className="qc-icon-flag"></i></a>;
+                                        return <a role="button" aria-label="report spam" onClick={ obj.handleFlagComment } ><i className="qc-icon-flag"></i></a>;
                                     }
                                 }(this))
                             }
