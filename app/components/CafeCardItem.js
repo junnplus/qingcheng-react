@@ -1,5 +1,6 @@
 var React = require('react');
 var urlize = require('../filters').urlize;
+var UserAvatar = require('./UserAvatar');
 
 var CafeCardItem = React.createClass({
     propTypes: {
@@ -36,6 +37,13 @@ var CafeCardItem = React.createClass({
 						<h3 className="card-title">{ cafe.name }</h3>
 					</div>
 				</a>
+                {
+                    (function(obj){
+                        if ( cafe.user ) {
+                            return <UserAvatar user={ cafe.user }  clazz="small circle" />;
+                        }
+                    }(this))
+                }
 				<div className="card-footer">
 					<div className="card-description">{ cafe.description ? urlize(cafe.description) : "No description" }</div>
 				</div>
