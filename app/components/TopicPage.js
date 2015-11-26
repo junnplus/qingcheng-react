@@ -2,6 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var TopicHentry = require('./TopicHentry');
 var FetchStore = require('../stores/FetchStore');
+var FetchActions = require('../actions/FetchActions');
 var TopicActions = require('../actions/TopicActions');
 var TopicStore = require('../stores/TopicStore');
 var CommentsStore = require('../stores/CommentsStore');
@@ -21,6 +22,17 @@ var TopicPage = React.createClass({
             CommentsActions.fetchTopicComments(tid);
         });
 	},
+    componentWillReceiveProps: function(nextProps) {
+        var newId = nextProps.params.tid;
+        var oldId = this.props.params.tid;
+        if ( oldId !== newId ) {
+            this.setState({comments: []});
+            FetchActions.fetching(true);
+            TopicActions.load(newId, function(){
+                CommentsActions.fetchTopicComments(newId);
+            });
+        }
+    },
     render: function() {
 		var topic = this.state.topic;
         var current_user = this.props.current_user;
@@ -40,7 +52,7 @@ var TopicPage = React.createClass({
 				</div>
                 { 
                     (function(obj){
-                        if (topic.id) {
+                        if ( !obj.state.fetching && topic.id) {
                             return <CommentBox comments={comments} topic={topic} current_user={current_user} />;
                         }
                     }(this)) 
