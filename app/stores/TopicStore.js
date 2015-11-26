@@ -2,6 +2,7 @@ var Reflux = require('reflux');
 var TopicActions = require('../actions/TopicActions');
 var FetchActions = require('../actions/FetchActions');
 var api = require('../api');
+var history = require('../history');
 
 var TopicStore = Reflux.createStore({
     listenables: TopicActions,
@@ -40,7 +41,12 @@ var TopicStore = Reflux.createStore({
             this.topic.liked_by_me = false;
             this.trigger(this.topic);
         }.bind(this));
-	}
+	},
+    onUpdate: function(tid, payload) {
+        api.topic.update(tid, payload, function(){
+            history.pushState(null, '/t/' + tid);
+        });
+    }
 });
 
 module.exports = TopicStore;

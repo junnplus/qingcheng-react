@@ -4,7 +4,8 @@ var TopicActions = Reflux.createActions([
     'load',
     'like',
     'unlike',
-    'viewRaw'
+    'viewRaw',
+    'update'
 ]);
 
 module.exports = TopicActions;
