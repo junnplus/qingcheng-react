@@ -55,7 +55,7 @@ var LoginForm = React.createClass({
 					</label>
 					<div className="form-submit">
 						<button className="button buttong--green">Log In</button>
-						<a>Find Password</a>
+						<a> Find Password</a>
 					</div>
 				</form>
 
@@ -67,14 +67,22 @@ var LoginForm = React.createClass({
 						<button className="button buttong--green">Sign Up</button>
 					</div>
 				</form>
-				<div className="login-social">
-					<h3>Login With</h3>
-					<div className="login-buttons">
-						<a className="button login">
-							<i className="qc-icon-google"></i> GOOGLE
-						</a>
-					</div>
-				</div>
+                {
+                    (function(obj){
+                        if ( obj.state.LoginTab ) {
+                            return (
+                                <div className="login-social">
+                                    <h3>Login With</h3>
+                                    <div className="login-buttons">
+                                        <a className="button login">
+                                            <i className="qc-icon-google"></i> GOOGLE
+                                        </a>
+                                    </div>
+                                </div>
+                            );
+                        }
+                    }(this))
+                }
 			</div>
         );
     }
