@@ -16,12 +16,12 @@ var TopicPage = React.createClass({
         Reflux.connect(FetchStore, "fetching"),
         Reflux.connect(CommentsStore, "comments")
     ],
-	componentDidMount: function(){
+    componentDidMount: function(){
         var tid = this.props.params.tid;
         TopicActions.load(tid, function(){
             CommentsActions.fetchTopicComments(tid);
         });
-	},
+    },
     componentWillReceiveProps: function(nextProps) {
         var newId = nextProps.params.tid;
         var oldId = this.props.params.tid;
@@ -38,18 +38,18 @@ var TopicPage = React.createClass({
         var current_user = this.props.current_user;
         var comments = this.state.comments;
         return (
-			<div className="body">
-				<div className="entry-view">
+            <div className="body">
+                <div className="entry-view">
                     {
                         (function(obj){
                             if ( obj.state.fetching ) {
                                 return <Logo clazz={ "loading center" } />;
-                            } else {
+                            } else if ( topic.id ) {
                                 return <TopicHentry topic={ topic } current_user={ current_user }/>;
                             }
                         }(this))
                     }
-				</div>
+                </div>
                 { 
                     (function(obj){
                         if ( !obj.state.fetching && topic.id) {
@@ -57,7 +57,7 @@ var TopicPage = React.createClass({
                         }
                     }(this)) 
                 }
-			</div>
+            </div>
         );
     }
 });
