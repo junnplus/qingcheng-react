@@ -38,11 +38,11 @@ var TopicList = React.createClass({
             loadMore = <div className="load-more" onClick={ this.fetchMoreTopics }>Load More</div>;
         }
         return (
-			<div className="topic-list">
+            <div className="topic-list">
                 <ul> { topics } </ul>
                 { logo }
                 { loadMore }
-			</div>
+            </div>
         );
     }
 });

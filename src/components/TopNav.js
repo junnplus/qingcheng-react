@@ -17,11 +17,11 @@ var TopNav = React.createClass({
         Reflux.connect(UserNotificationsStore, "notifications"),
         Reflux.connect(ShowOverlayStore, "showNotifications")
     ],
-	getInitialState: function() {
+    getInitialState: function() {
         return {
             showUserDropdown: false,
         };
-	},
+    },
     propTypes: {
         current_user: React.PropTypes.shape().isRequired,
     },
@@ -43,10 +43,10 @@ var TopNav = React.createClass({
         e.preventDefault();
         ShowOverlayActions.showNotifications(true);
     },
-	viewUserDropdown: function(e) {
+    viewUserDropdown: function(e) {
         e.preventDefault();
         this.setState({showUserDropdown:true});
-	},
+    },
     handleLogout: function(e) {
         e.preventDefault();
         UserSessionActions.logout();
@@ -63,8 +63,8 @@ var TopNav = React.createClass({
             );
         } else {
             nav = (
-				<ul className="nav clearfix">
-					<li>
+                <ul className="nav clearfix">
+                    <li>
                         { 
                             (function(obj){
                                 if ( notifications.length ) {
@@ -83,9 +83,9 @@ var TopNav = React.createClass({
                                 }
                             }(this))
                         }
-					</li>
-					<li>
-						<UserAvatar user={ current_user } onClick={ this.viewUserDropdown } />
+                    </li>
+                    <li>
+                        <UserAvatar user={ current_user } onClick={ this.viewUserDropdown } />
                         { 
                             (function(obj){
                                 if ( obj.state.showUserDropdown ) {
@@ -100,8 +100,8 @@ var TopNav = React.createClass({
                                 }
                             }(this))
                         }
-					</li>
-				</ul>
+                    </li>
+                </ul>
             );
         }
         return (
@@ -116,7 +116,7 @@ var TopNav = React.createClass({
                         </nav>
                     </div>
                     <div className="site-account">
-						{ nav }
+                        { nav }
                     </div>
                 </div>
             </div>

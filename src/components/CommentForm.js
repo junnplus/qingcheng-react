@@ -34,7 +34,7 @@ var CommentForm = React.createClass({
     render: function() {
         current_user = this.props.current_user;
         return (
-			<form className="comment-form" ref="form" onSubmit={ this.handleFormSubmit }>
+            <form className="comment-form" ref="form" onSubmit={ this.handleFormSubmit }>
                 {
                     (function(obj){
                         if ( !current_user.id ) {
@@ -49,7 +49,7 @@ var CommentForm = React.createClass({
                         }
                     }(this))
                 }
-				<MarkdownArea clazz="comment-item" placeholder="Write your response" current_user={current_user} content={ this.state.content } handleChange={ this.handleChange }></MarkdownArea>
+                <MarkdownArea clazz="comment-item" placeholder="Write your response" current_user={current_user} content={ this.state.content } handleChange={ this.handleChange }></MarkdownArea>
                 {
                     (function(obj){
                         if ( current_user.id ) {
@@ -57,7 +57,7 @@ var CommentForm = React.createClass({
                         }
                     }(this))
                 }
-			</form>
+            </form>
         );
     }
 });

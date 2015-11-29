@@ -23,10 +23,10 @@ var TopicCafe = React.createClass({
     render: function() {
         var cafe = this.props.cafe;
         return (
-			<span className="topic-cafe">
-        		<span className="cafe-logo" style={ logo(cafe.style) }></span>
-        		<Link to={ '/c/' + cafe.slug } aria-label={ "Published in " + cafe.name }>{ cafe.name }</Link>
-		  	</span>
+            <span className="topic-cafe">
+                <span className="cafe-logo" style={ logo(cafe.style) }></span>
+                <Link to={ '/c/' + cafe.slug } aria-label={ "Published in " + cafe.name }>{ cafe.name }</Link>
+            </span>
         );
     }
 });

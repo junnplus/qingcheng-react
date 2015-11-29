@@ -12,9 +12,9 @@ var HomePage = React.createClass({
         Reflux.connect(FetchStore, "fetching"),
         Reflux.connect(TimelineStore, "topics")
     ],
-	componentDidMount: function(){
+    componentDidMount: function(){
         TimelineActions.fetchTimeline(this.props.location.query);
-	},
+    },
     componentWillReceiveProps: function(nextProps) {
         if ( nextProps.location.search !== this.props.location.search ) {
             this.setState({topics: []});
@@ -29,25 +29,25 @@ var HomePage = React.createClass({
             <div className="home-view">
                 <Header title="Python China" description="Welcome to Python China" path="home" />
                 <div className="body">
-					<div className="split-view container">
-					  <div className="main-view">
-						<TopicList topics={this.state.topics} query={this.props.location.query} />
-					  </div>
-					  <div className="sidebar-view">
-                        { 
-                            (function(obj){
-                                if ( current_user.id ) {
-                                    return (
-                                        <div className="widget">
-                                          <a className="button button--green">New Topic</a>
-                                        </div>
-                                    );
-                                }
-                            }(this)) 
-                        }
-						<div className="site-sidebar"></div>
-					  </div>
-					</div>
+                    <div className="split-view container">
+                        <div className="main-view">
+                            <TopicList topics={this.state.topics} query={this.props.location.query} />
+                        </div>
+                        <div className="sidebar-view">
+                            { 
+                                (function(obj){
+                                    if ( current_user.id ) {
+                                        return (
+                                            <div className="widget">
+                                              <a className="button button--green">New Topic</a>
+                                            </div>
+                                        );
+                                    }
+                                }(this)) 
+                            }
+                            <div className="site-sidebar"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

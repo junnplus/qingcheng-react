@@ -33,9 +33,9 @@ var CommentItem = React.createClass({
         var comment = this.props.comment;
         var user = comment.user;
         return (
-			<li id={ "c-" + comment.id } className={ !this.state.isHide ? "comment-item item-container" : "comment-item item-container comment-hide" }>
-				<UserAvatar user={ user }/>
-				<div className="comment-main item-content">
+            <li id={ "c-" + comment.id } className={ !this.state.isHide ? "comment-item item-container" : "comment-item item-container comment-hide" }>
+                <UserAvatar user={ user }/>
+                <div className="comment-main item-content">
                     <div className="comment-info">
                         <Link to={ "/u/" + user.username }>{ user.username }</Link>
                         <time>{ timeago(comment.created_at) }</time>
@@ -72,8 +72,8 @@ var CommentItem = React.createClass({
                         </div>
                     </div>
                     <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }}></div>
-				</div>
-			</li>
+                </div>
+            </li>
         );
     }
 });

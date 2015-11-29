@@ -20,7 +20,7 @@ var CafePage = React.createClass({
     ],
     componentDidMount: function() {
         var slug = this.props.params.slug;
-		CafeActions.load(slug, function(){
+        CafeActions.load(slug, function(){
             TopicsActions.fetchCafeTopics(slug);
         });
     },
@@ -41,13 +41,13 @@ var CafePage = React.createClass({
     },
     render: function() {
         var cafe = this.state.cafe;
-		var current_user = this.props.current_user;
+        var current_user = this.props.current_user;
         return (
             <div className="cafe-view">
                 <Header title={cafe.name} description={urlize(cafe.description)} cafe={cafe} path="cafe" />
                 <div className="body">
-					<div className="split-view container">
-					  <div className="main-view">
+                    <div className="split-view container">
+                        <div className="main-view">
                         {
                             (function(obj){
                                 if (obj.canWrite()) {
@@ -60,9 +60,9 @@ var CafePage = React.createClass({
                                 }
                             }(this))
                         }
-						<TopicList slug={this.props.params.slug} topics={this.state.topics} />
-					  </div>
-					</div>
+                        <TopicList slug={this.props.params.slug} topics={this.state.topics} />
+                        </div>
+                    </div>
                 </div>
             </div>
         );

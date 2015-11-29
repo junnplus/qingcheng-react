@@ -13,12 +13,12 @@ var Overlay = React.createClass({
     },
     render: function() {
         return (
-			<div className="overlay">
-				<div className="overlay-mask" onClick={this.handleHiddenLogin}></div>
-				<div className="overlay-inner">
-					{this.props.children}
-				</div>
-			</div>
+            <div className="overlay">
+                <div className="overlay-mask" onClick={this.handleHiddenLogin}></div>
+                <div className="overlay-inner">
+                    {this.props.children}
+                </div>
+            </div>
         );
     }
 });

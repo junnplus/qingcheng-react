@@ -31,12 +31,12 @@ var CafeCardItem = React.createClass({
     render: function() {
 		var cafe = this.props.cafe;
         return (
-			<div id={ "c-" + cafe.slug } className="cafe-card card">
-				<a className="cover" style={ this.color() } href={ "/c/" + cafe.slug }>
-					<div className="cover__text">
-						<h3 className="card-title">{ cafe.name }</h3>
-					</div>
-				</a>
+            <div id={ "c-" + cafe.slug } className="cafe-card card">
+                <a className="cover" style={ this.color() } href={ "/c/" + cafe.slug }>
+                    <div className="cover__text">
+                        <h3 className="card-title">{ cafe.name }</h3>
+                    </div>
+                </a>
                 {
                     (function(obj){
                         if ( cafe.user ) {
@@ -44,10 +44,10 @@ var CafeCardItem = React.createClass({
                         }
                     }(this))
                 }
-				<div className="card-footer">
-					<div className="card-description">{ cafe.description ? urlize(cafe.description) : "No description" }</div>
-				</div>
-			</div>
+                <div className="card-footer">
+                    <div className="card-description">{ cafe.description ? urlize(cafe.description) : "No description" }</div>
+                </div>
+            </div>
         );
     }
 });

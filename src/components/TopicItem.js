@@ -12,14 +12,14 @@ var TopicItem = React.createClass({
             title: React.PropTypes.string.isRequired
         }).isRequired,
     },
-	getDefaultProps: function() {
-		return {
-		  topic: {
-              id: null,
-              title: null
-          }
-		};
-	},
+    getDefaultProps: function() {
+        return {
+            topic: {
+                id: null,
+                title: null
+            }
+        };
+    },
     render: function() {
         var topic = this.props.topic;
         var cafes;
@@ -39,21 +39,21 @@ var TopicItem = React.createClass({
             commentCount = <span>{ topic.comment_count + " replies" }</span>;
         }
         return (
-          <li  id={ "t-" + topic.id } className="topic-item clearfix">
-            <span className="user-avatar">
-                <UserAvatar user={ topic.user } clazz={ "small circle tip" } />
-            </span>
-            <div className="topic-meta">
-                { cafes }
-            </div>
-            <Link to={ "/t/" + topic.id } className="topic-title"> { topic.title } </Link>
-            <div className="topic-info">
-                <time>{ timeago(topic.created_at) }</time>
-                { viewCount }
-                { likeCount }
-                { commentCount }
-            </div>
-          </li>
+            <li  id={ "t-" + topic.id } className="topic-item clearfix">
+                <span className="user-avatar">
+                    <UserAvatar user={ topic.user } clazz={ "small circle tip" } />
+                </span>
+                <div className="topic-meta">
+                    { cafes }
+                </div>
+                <Link to={ "/t/" + topic.id } className="topic-title"> { topic.title } </Link>
+                <div className="topic-info">
+                    <time>{ timeago(topic.created_at) }</time>
+                    { viewCount }
+                    { likeCount }
+                    { commentCount }
+                </div>
+            </li>
         );
     }
 });

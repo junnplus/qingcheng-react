@@ -11,13 +11,13 @@ var UserNotifications = React.createClass({
 			return <NoticeItem key={index} notice={item} />;
 		}.bind(this));
         return (
-			<div className="notification-list">
-				<h2>Notifications</h2>
-				{ notifications }
-				<div className="clear-button">
-					<button className="button buttong--green" onClick={this.handleClearNotifications}>Clear</button>
-				</div>
-			</div>
+            <div className="notification-list">
+                <h2>Notifications</h2>
+                { notifications }
+                <div className="clear-button">
+                    <button className="button buttong--green" onClick={this.handleClearNotifications}>Clear</button>
+                </div>
+            </div>
         );
     }
 });

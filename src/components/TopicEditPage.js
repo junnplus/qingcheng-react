@@ -8,10 +8,10 @@ var TopicEditPage = React.createClass({
     mixins: [
         Reflux.connect(TopicStore, "topic"),
     ],
-	componentDidMount: function(){
+    componentDidMount: function(){
         var tid = this.props.params.tid;
         TopicActions.viewRaw(tid);
-	},
+    },
     render: function() {
 		var topic = this.state.topic;
         var cafe = topic.cafes[0];

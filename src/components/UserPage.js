@@ -21,8 +21,8 @@ var UserPage = React.createClass({
     render: function() {
         var user = this.state.user;
         return (
-			<div className="user-view">
-				<Header title={user.username} description={urlize(user.description)} path="user" user={user}/>
+            <div className="user-view">
+                <Header title={user.username} description={urlize(user.description)} path="user" user={user}/>
                 <div className="body">
                     <div className="split-view container">
                         <div className="main-view">
@@ -30,7 +30,7 @@ var UserPage = React.createClass({
                         </div>
                     </div>
                 </div>
-			</div>
+            </div>
         );
     }
 });

@@ -22,19 +22,19 @@ var NoticeItem = React.createClass({
         };
         return categories[t] || t;
     },
-	handleViewNotice: function() {
-		ShowOverlayActions.showNotifications(false);
-	},
+    handleViewNotice: function() {
+        ShowOverlayActions.showNotifications(false);
+    },
     render: function() {
 		var notice = this.props.notice;
         return (
-			<div className="item-container">
-			  	<UserAvatar user={ notice.sender} />
-			  	<div className="item-content">
-					<div className="item-info">{ this.message(notice.category) }</div>
-					<Link className="topic-title" to={ "/t/" + notice.topic.id } onClick={this.handleViewNotice}>{ notice.topic.title }</Link>
-			  	</div>
-			</div>
+            <div className="item-container">
+                <UserAvatar user={ notice.sender} />
+                <div className="item-content">
+                <div className="item-info">{ this.message(notice.category) }</div>
+                <Link className="topic-title" to={ "/t/" + notice.topic.id } onClick={this.handleViewNotice}>{ notice.topic.title }</Link>
+                </div>
+            </div>
         );
     }
 });

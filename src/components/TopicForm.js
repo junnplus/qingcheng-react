@@ -32,15 +32,15 @@ var TopicForm = React.createClass({
             content: React.PropTypes.string
         }),
     },
-	getDefaultProps: function() {
-		return {
-		    topic: {
+    getDefaultProps: function() {
+        return {
+            topic: {
                 title: '',
                 link: '',
                 content: ''
             }
-		};
-	},
+        };
+    },
     handleChange: function(e) {
         if (e.target.name === 'content') {
             ContentActions.sync(e.target.value);
@@ -65,21 +65,21 @@ var TopicForm = React.createClass({
         var cafe = this.props.cafe;
         var current_user = this.props.current_user;
         return (
-			<form className="topic-form" ref="form" onSubmit={this.handleFormSubmit} >
-				<div className="form-description">
-					Topic in <Link to={ "/c/" + cafe.slug }> { cafe.name }</Link>
-				</div>
-				<div className="form-field form-title">
-					<input placeholder="Your topic title" name='title' value={this.state.title} onChange={ this.handleChange }></input>
-				</div>
-				<div className="form-field form-link">
-					<input placeholder="Source link?" type="url" name='link' value={this.state.link} onChange={ this.handleChange }></input>
-				</div>
-				<MarkdownArea clazz="form-field form-content yue" handleChange={this.handleChange} placeholder="What is in your mind" content={ this.state.content }></MarkdownArea>
-				<div className="form-submit">
-					<button className="button buttong--green">{ this.props.type }</button>
-				</div>
-			</form>
+            <form className="topic-form" ref="form" onSubmit={this.handleFormSubmit} >
+                <div className="form-description">
+                    Topic in <Link to={ "/c/" + cafe.slug }> { cafe.name }</Link>
+                </div>
+                <div className="form-field form-title">
+                    <input placeholder="Your topic title" name='title' value={this.state.title} onChange={ this.handleChange }></input>
+                </div>
+                <div className="form-field form-link">
+                    <input placeholder="Source link?" type="url" name='link' value={this.state.link} onChange={ this.handleChange }></input>
+                </div>
+                <MarkdownArea clazz="form-field form-content yue" handleChange={this.handleChange} placeholder="What is in your mind" content={ this.state.content }></MarkdownArea>
+                <div className="form-submit">
+                    <button className="button buttong--green">{ this.props.type }</button>
+                </div>
+            </form>
         );
     }
 });

@@ -14,9 +14,9 @@ var CafesPage = React.createClass({
         Reflux.connect(FetchStore, "fetching"),
         Reflux.connect(FollowingCafesStore, "following")
     ],
-	componentDidMount: function(){
+    componentDidMount: function(){
         CafesActions.fetchCafes();
-	},
+    },
     render: function() {
         return (
             <div className="body cafe-list">
@@ -39,10 +39,10 @@ var CafesPage = React.createClass({
                         }
                     }(this))
                 }
-				<div className="section container">
-					  <h2 className="section-title">Cafes</h2>
-                      <CafeCardList cafes={this.state.cafes}/>
-				</div>
+                <div className="section container">
+                    <h2 className="section-title">Cafes</h2>
+                    <CafeCardList cafes={this.state.cafes}/>
+                </div>
             </div>
         );
     }

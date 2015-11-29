@@ -8,10 +8,10 @@ var TopicCreatePage = React.createClass({
     mixins: [
         Reflux.connect(CafeStore, "cafe"),
     ],
-	componentDidMount: function(){
+    componentDidMount: function(){
         var slug = this.props.params.slug;
         CafeActions.load(slug); 
-	},
+    },
     render: function() {
         var cafe = this.state.cafe;
         var current_user = this.state.current_user;
