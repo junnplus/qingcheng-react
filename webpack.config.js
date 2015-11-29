@@ -6,7 +6,7 @@ var publicPath = "/build/";
 module.exports = {
     entry: {
         app: [
-            path.resolve(__dirname, 'app/index')
+            path.resolve(__dirname, 'src/index')
         ]
     },
     output: {
@@ -16,7 +16,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.js$/, exclude: /node_modules/, loader: 'react-hot!jsx-loader?harmony'},
+            {test: /\.js$/, exclude: /node_modules/, loader: 'react-hot!babel'},
         ]
     },
     plugins: [
