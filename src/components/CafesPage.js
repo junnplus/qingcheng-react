@@ -1,7 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
 var CafeCardList = require('./CafeCardList');
-var $ = require('jquery');
 var CafesStore = require('../stores/CafesStore');
 var CafesActions = require('../actions/CafesActions');
 var FetchStore = require('../stores/FetchStore');
