@@ -13,7 +13,7 @@ var UserSessionStore = Reflux.createStore({
         return this.user;
     },
     onLogin(data) {
-        api.user.login(data, (resp) => {
+        api.user.login(data, resp => {
             this.user = resp;
             this.trigger(this.user);
             UserNotificationsActions.fetchNotifications();
@@ -24,6 +24,14 @@ var UserSessionStore = Reflux.createStore({
         api.user.logout(() => {
             this.user = {};
             this.trigger(this.user);
+        });
+    },
+    onSignup(email) {
+        api.user.signup(email, resp => {
+            // show msg
+            ShowOverlayActions.showLogin(false);
+        }).error(resp => {
+            // show error msg
         });
     },
     onFetchCurrentUser() {

@@ -34,6 +34,7 @@ var LoginForm = React.createClass({
     },
     handleSignup(e) {
         e.preventDefault();
+        UserSessionActions.signup(this.state.email);
     },
     render() {
         return (
