@@ -15,7 +15,7 @@ var LoginForm = React.createClass({
     handleShowLoginTab() {
         this.setState({LoginTab: true});
     },
-    handleShowSignupTabxxxxxxxxxx() {
+    handleShowSignupTab() {
         this.setState({LoginTab: false});
     },
     handleChange(e) {
