@@ -14,7 +14,8 @@
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-router": "^1.0.0",
-    "reflux": "^0.3.0"
+    "reflux": "^0.3.0",
+    "word-color": "^1.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
