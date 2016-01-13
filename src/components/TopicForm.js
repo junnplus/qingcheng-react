@@ -1,27 +1,26 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var Reflux = require('reflux');
-var TopicActions = require('../actions/TopicActions');
-var TopicStore = require('../stores/TopicStore');
-var MarkdownArea = require('./MarkdownArea');
-var ContentActions = require('../actions/ContentActions');
-var ContentStore = require('../stores/ContentStore');
-var shake = require('../utils').shake;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {ReactRouter, Link} from 'react-router';
+import Reflux from 'reflux';
+import TopicActions from '../actions/TopicActions';
+import TopicStore from '../stores/TopicStore';
+import MarkdownArea from './MarkdownArea';
+import ContentActions from '../actions/ContentActions';
+import ContentStore from '../stores/ContentStore';
+import {shake} from '../utils';
 
 var TopicForm = React.createClass({
     mixins: [
         Reflux.connect(ContentStore, "content"),
     ],
-    getInitialState: function() {
+    getInitialState() {
         return {
             title: this.props.topic.title || '',
             link: this.props.topic.link || '',
             disabled: false 
         };
     },
-    componentDidMount: function() {
+    componentDidMount() {
         ContentActions.sync(this.props.topic.content);
         this.setState({content: this.props.topic.content});
     },
@@ -32,7 +31,7 @@ var TopicForm = React.createClass({
             content: React.PropTypes.string
         }),
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             topic: {
                 title: '',
@@ -41,7 +40,7 @@ var TopicForm = React.createClass({
             }
         };
     },
-    handleChange: function(e) {
+    handleChange(e) {
         if (e.target.name === 'content') {
             ContentActions.sync(e.target.value);
         }
@@ -49,7 +48,7 @@ var TopicForm = React.createClass({
         newState[e.target.name] = e.target.value;
         this.setState(newState);
     },
-    handleFormSubmit: function(e) {
+    handleFormSubmit(e) {
         e.preventDefault();
         var payload = {
             title: this.state.title.replace(/(^\s*)|(\s*$)/g, ""),
@@ -61,7 +60,7 @@ var TopicForm = React.createClass({
         }
         TopicActions.update(this.props.topic.id, payload);
     },
-    render: function() {
+    render() {
         var cafe = this.props.cafe;
         var current_user = this.props.current_user;
         return (

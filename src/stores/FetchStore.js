@@ -1,16 +1,16 @@
-var Reflux = require('reflux');
-var FetchActions = require('../actions/FetchActions');
+import Reflux from 'reflux';
+import FetchActions from '../actions/FetchActions';
 
 var FetchStore = Reflux.createStore({
     listenables: FetchActions,
-    getInitialState: function() {
+    getInitialState() {
         this.fetching = true;
         return this.fetching;
     },
-    onFetching: function(fetching) {
+    onFetching(fetching) {
         this.fetching = fetching;
         this.trigger(this.fetching);
     },
 });
 
-module.exports = FetchStore;
+export default FetchStore;

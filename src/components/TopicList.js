@@ -1,11 +1,11 @@
-var React = require('react');
-var Reflux = require('reflux');
-var TopicItem = require('./TopicItem');
-var Logo = require('./Logo');
-var FetchStore = require('../stores/FetchStore');
-var FetchActions = require('../actions/FetchActions');
-var TopicsActions = require('../actions/TopicsActions');
-var TimelineActions = require('../actions/TimelineActions');
+import React from 'react';
+import Reflux from 'reflux';
+import TopicItem from './TopicItem';
+import Logo from './Logo';
+import FetchStore from '../stores/FetchStore';
+import FetchActions from '../actions/FetchActions';
+import TopicsActions from '../actions/TopicsActions';
+import TimelineActions from '../actions/TimelineActions';
 
 var TopicList = React.createClass({
     mixins: [
@@ -14,12 +14,12 @@ var TopicList = React.createClass({
     propTypes: {
         topics: React.PropTypes.array.isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             topics: []
         };
     },
-    fetchMoreTopics: function(cursor) {
+    fetchMoreTopics(cursor) {
         FetchActions.fetching(true);
         if (this.props.user) {
             TopicsActions.fetchTopics(this.props.user.username);
@@ -27,10 +27,10 @@ var TopicList = React.createClass({
             TimelineActions.fetchTimeline(this.props.query);
         }
     },
-    render: function() {
-        var topics = this.props.topics.map(function(item, index){
+    render() {
+        var topics = this.props.topics.map((item, index) => {
             return <TopicItem key={index} topic={item} />;
-        }.bind(this));
+        });
         var logo, loadMore;
         if ( this.state.fetching ) {
             logo = <Logo clazz={ "loading center" } />;

@@ -1,42 +1,42 @@
-var Reflux = require('reflux');
-var TopicsActions = require('../actions/TopicsActions');
-var FetchActions = require('../actions/FetchActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import TopicsActions from '../actions/TopicsActions';
+import FetchActions from '../actions/FetchActions';
+import api from '../api';
 
 var TopicsStore = Reflux.createStore({
     listenables: TopicsActions,
-	getInitialState: function () {
+	getInitialState() {
         this.topics = [];
         return this.topics;
     },
-    onFetchCafeTopics: function(slug) {
+    onFetchCafeTopics(slug) {
 		var params = {};
 		params.slug = slug;
 		params.page = 1;
-		api.cafe.topics(params.slug, params.page, function(resp) {
+		api.cafe.topics(params.slug, params.page, (resp) => {
 			this.topics = resp.data;
             this.trigger(this.topics);
             FetchActions.fetching(false);
-        }.bind(this));
+        });
     },
-    onFetchUserTopics: function(username) {
+    onFetchUserTopics(username) {
 		var params = {};
 		params.username = username;
-        api.user.topics(params.username, 0, function(resp) {
+        api.user.topics(params.username, 0, (resp) => {
 			this.topics = resp.data;
             this.cursor = resp.cursor;
             this.trigger(this.topics);
             FetchActions.fetching(false);
-        }.bind(this));
+        });
     },
-    onFetchTopics: function(username) {
-		api.user.topics(username, this.cursor, function(resp) {
+    onFetchTopics(username) {
+		api.user.topics(username, this.cursor, (resp) => {
 			this.topics = this.topics.concat(resp.data);
 			this.cursor = resp.cursor;
             this.trigger(this.topics);
             FetchActions.fetching(false);
-		}.bind(this));
+		});
     },
 });
 
-module.exports = TopicsStore;
+export default TopicsStore;

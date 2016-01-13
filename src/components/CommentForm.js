@@ -1,61 +1,64 @@
-var React = require('react');
-var Reflux = require('reflux');
-var ReactDOM = require('react-dom');
-var MarkdownArea = require('./MarkdownArea');
-var UserAvatar = require('./UserAvatar');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
-var CommentsActions = require('../actions/CommentsActions');
-var ContentActions = require('../actions/ContentActions');
-var ContentStore = require('../stores/ContentStore');
-var shake = require('../utils').shake;
+import React from 'react';
+import Reflux from 'reflux';
+import ReactDOM from 'react-dom';
+import MarkdownArea from './MarkdownArea';
+import UserAvatar from './UserAvatar';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
+import CommentsActions from '../actions/CommentsActions';
+import ContentActions from '../actions/ContentActions';
+import ContentStore from '../stores/ContentStore';
+import shake from '../utils';
 
 var CommentForm = React.createClass({
     mixins: [
         Reflux.connect(ContentStore, "content"),
     ],
-    handleShowLogin: function() {
+    contextTypes: {
+        current_user: React.PropTypes.object
+    },
+    handleShowLogin() {
         ShowOverlayActions.showLogin(true);
     },
-    handleChange: function(e) {
+    handleChange(e) {
         ContentActions.sync(e.target.value);
         this.setState({content: e.target.value});
     },
-    handleFormSubmit: function(e) {
+    handleFormSubmit(e) {
         e.preventDefault();
         var content = this.state.content.replace(/(^\s*)|(\s*$)/g, "");
         if ( !content || 480 - content.length < 0 ) {
             return shake(ReactDOM.findDOMNode(this.refs.form));
         }
         var payload = {content: content};
-        CommentsActions.createTopicComment(this.props.topic.id, payload, function(){
+        CommentsActions.createTopicComment(this.props.topic.id, payload, () => {
             this.setState({content: ''});
-        }.bind(this));
+        });
     },
-    render: function() {
-        current_user = this.props.current_user;
+    render() {
+        var current_user = this.context.current_user;
         return (
             <form className="comment-form" ref="form" onSubmit={ this.handleFormSubmit }>
                 {
-                    (function(obj){
+                    ((obj) => {
                         if ( !current_user.id ) {
                             return <div className="comment-form-mask" onClick={obj.handleShowLogin}></div>;
                         }
-                    }(this))
+                    })(this)
                 }
                 {
-                    (function(obj){
+                    ((obj) => {
                         if ( current_user.id ) {
                             return <UserAvatar user={ current_user } clazz="small circle" />;
                         }
-                    }(this))
+                    })(this)
                 }
-                <MarkdownArea clazz="comment-item" placeholder="Write your response" current_user={current_user} content={ this.state.content } handleChange={ this.handleChange }></MarkdownArea>
+                <MarkdownArea clazz="comment-item" placeholder="Write your response" content={ this.state.content } handleChange={ this.handleChange }></MarkdownArea>
                 {
-                    (function(obj){
+                    ((obj) => {
                         if ( current_user.id ) {
                             return <button className="button">Reply</button>;
                         }
-                    }(this))
+                    })(this)
                 }
             </form>
         );

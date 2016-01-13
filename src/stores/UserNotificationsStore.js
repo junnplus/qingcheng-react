@@ -1,28 +1,28 @@
-var Reflux = require('reflux');
-var UserNotificationsActions = require('../actions/UserNotificationsActions');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import UserNotificationsActions from '../actions/UserNotificationsActions';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
+import api from '../api';
 
 var UserNotificationsStore = Reflux.createStore({
     listenables: UserNotificationsActions,
-	getInitialState: function() {
+	getInitialState() {
         this.notifications = [];
         return this.notifications;
 	},
-    onFetchNotifications: function() {
-        api.notification.list(function(resp) {
+    onFetchNotifications() {
+        api.notification.list((resp) => {
           	this.notifications = resp.data;
           	this.pagination = resp.pagination;
             this.trigger(this.notifications);
-        }.bind(this));
+        });
     },
-    onClearNotifications: function() {
-        api.notification.flush(function(){
+    onClearNotifications() {
+        api.notification.flush(() => {
 			this.notifications = [];
 			this.trigger(this.notifications);
 			ShowOverlayActions.showNotifications(false);
-		}.bind(this));
+		});
     }
 });
 
-module.exports = UserNotificationsStore;
+export default UserNotificationsStore;

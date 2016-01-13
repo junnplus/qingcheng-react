@@ -1,9 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Reflux = require('reflux');
-var MarkdownStore = require('../stores/MarkdownStore');
-var MarkdownActions = require('../actions/MarkdownActions');
-var ContentActions = require('../actions/ContentActions');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Reflux from 'reflux';
+import MarkdownStore from '../stores/MarkdownStore';
+import MarkdownActions from '../actions/MarkdownActions';
+import ContentActions from '../actions/ContentActions';
 
 var MarkdownArea = React.createClass({
     mixins: [
@@ -12,29 +12,28 @@ var MarkdownArea = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
     },
-    handleShowPreview: function(e) {
+    handleShowPreview(e) {
         e.preventDefault();
         if ( this.state.html ) {
             this.setState({html: ''});
         }
         MarkdownActions.preview(this.props.content);
     },
-    handleShowEdit: function(e) {
+    handleShowEdit(e) {
         e.preventDefault();
         this.setState({html: ''});
     },
-    handleShowUpload: function(e) {
+    handleShowUpload(e) {
         e.preventDefault();
         ReactDOM.findDOMNode(this.refs.file).click();
     },
-    handleUpload: function() {
+    handleUpload() {
         var files = ReactDOM.findDOMNode(this.refs.file).files;
         if ( !files.length ) return;
 
         ContentActions.uploadImage(files[0]);
     },
-    render: function() {
-        var current_user = this.props.current_user;
+    render() {
         var displayNone = {
             display: "none"
         };

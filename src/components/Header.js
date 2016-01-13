@@ -1,14 +1,14 @@
-var React = require('react');
-var HeaderNav = require('./HeaderNav');
-var UserAvatar = require('./UserAvatar');
+import React from 'react';
+import HeaderNav from './HeaderNav';
+import UserAvatar from './UserAvatar';
 
 var Header = React.createClass({
-    style: function() {
+    style() {
         var style = this.props.cafe.style;
         if (!style || !style.cover) return {};
         return {'backgroundImage': 'url(' + style.cover + ')'};
     },
-    render: function() {
+    render() {
         return (
             <div className="header">
                 <div className="header__cover cover" style={ this.props.cafe ? this.style() : {}}>

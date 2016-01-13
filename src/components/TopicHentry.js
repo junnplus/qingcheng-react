@@ -16,7 +16,10 @@ var TopicHentry = React.createClass({
             cafes: React.PropTypes.array.isRequired
         }).isRequired,
     },
-    getDefaultProps: function() {
+    contextTypes: {
+        current_user: React.PropTypes.object
+    },
+    getDefaultProps() {
         return {
             topic: {
                 title: '',
@@ -24,17 +27,17 @@ var TopicHentry = React.createClass({
             }
         };
     },
-    getInitialState: function() {
+    getInitialState() {
         return {
             showEditDropdown: false
         };
     },
-    topicStyle: function() {
+    topicStyle() {
         var cover = this.props.topic.info.cover;
         if (!cover) return null;
         return {'backgroundImage': 'url(' + cover + ')'};
     },
-    cafeStyle: function() {
+    cafeStyle() {
         var style = this.props.topic.cafes[0].style;
         var rv = {'backgroundColor': style.color || '#222221'};
         if (style.logo) {
@@ -42,14 +45,14 @@ var TopicHentry = React.createClass({
         }
         return rv;
     },
-    handleShowEditDropdown: function() {
+    handleShowEditDropdown() {
         this.setState({showEditDropdown: true});
     },
-    handleClose: function() {
+    handleClose() {
         this.setState({showEditDropdown: false});
     },
-    render: function() {
-        var current_user = this.props.current_user;
+    render() {
+        var current_user = this.context.current_user;
 		var topic = this.props.topic;
 		var user = this.props.topic.user;
         var cafe = this.props.topic.cafes[0];
@@ -66,11 +69,11 @@ var TopicHentry = React.createClass({
                         <Link to={ "/u/" + user.username } aria-label={ "Published by " + user.username }>@{ user.username }</Link>
                     </div>
                     {
-                        (function(obj){
+                        ((obj) => {
                             if (topic.webpage) {
                                 return <Webpage webpage={ topic.webpage } />;
                             }
-                        }(this))
+                        })(this)
                     }
                     <div className="entry-content yue" dangerouslySetInnerHTML={{ __html: topic.content }}></div>
                     <div className="entry-actions clearfix">
@@ -78,15 +81,15 @@ var TopicHentry = React.createClass({
                         <div className="more-actions">
                             <ShareButton />
                             {
-                                (function(obj){
-                                    if( topic.user.id === current_user.id ) {
+                                ((obj) => {
+                                    if( current_user.username && topic.user.id === current_user.id ) {
                                         return (
                                             <span>
                                                 <button className="button button--white tip" aria-label="Show edit options" onClick={obj.handleShowEditDropdown}>
                                                     <i className="qc-icon-quill"></i> 
                                                 </button> 
                                                 {
-                                                    (function(_obj){
+                                                    ((_obj) => {
                                                         if ( _obj.state.showEditDropdown ) {
                                                             return (
                                                                 <Dropdown handleClose={_obj.handleClose}>
@@ -95,12 +98,12 @@ var TopicHentry = React.createClass({
                                                                 </Dropdown>
                                                             );
                                                         }
-                                                    }(obj))
+                                                    })(obj)
                                                 }
                                             </span>
                                         );
                                     }
-                                }(this))
+                                })(this)
                             }
                         </div>
                     </div>

@@ -1,9 +1,9 @@
-var React = require('react');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
-var TopicActions = require('../actions/TopicActions');
+import React from 'react';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
+import TopicActions from '../actions/TopicActions';
 
 var LikeButton = React.createClass({
-    toggleLike: function() {
+    toggleLike() {
         if ( !this.props.current_user.id ) {
             ShowOverlayActions.showLogin(true);
         }
@@ -13,7 +13,7 @@ var LikeButton = React.createClass({
             TopicActions.like(this.props.topic.id);
         }
     },
-    render: function() {
+    render() {
         var topic = this.props.topic;
         return (
             <button className={ topic.liked_by_me ? "button button--white like-button liked" : "button button--white like-button" } onClick={this.toggleLike}>

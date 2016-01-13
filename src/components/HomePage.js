@@ -1,21 +1,21 @@
-var React = require('react');
-var Reflux = require('reflux');
-var Header = require('./Header');
-var TopicList = require('./TopicList');
-var FetchStore = require('../stores/FetchStore');
-var FetchActions = require('../actions/FetchActions');
-var TimelineActions = require('../actions/TimelineActions');
-var TimelineStore = require('../stores/TimelineStore');
+import React from 'react';
+import Reflux from 'reflux';
+import Header from './Header';
+import TopicList from './TopicList';
+import FetchStore from '../stores/FetchStore';
+import FetchActions from '../actions/FetchActions';
+import TimelineActions from '../actions/TimelineActions';
+import TimelineStore from '../stores/TimelineStore';
 
 var HomePage = React.createClass({
     mixins: [
         Reflux.connect(FetchStore, "fetching"),
         Reflux.connect(TimelineStore, "topics")
     ],
-    componentDidMount: function(){
+    componentDidMount(){
         TimelineActions.fetchTimeline(this.props.location.query);
     },
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if ( nextProps.location.search !== this.props.location.search ) {
             this.setState({topics: []});
             FetchActions.fetching(true);
@@ -23,8 +23,8 @@ var HomePage = React.createClass({
             TimelineActions.fetchTimeline(nextProps.location.query);
         }
     },
-    render: function() {
-        var current_user = this.props.current_user;
+    render() {
+        var current_user = this.context.current_user;
         return (
             <div className="home-view">
                 <Header title="Python China" description="Welcome to Python China" path="home" />
@@ -35,15 +35,15 @@ var HomePage = React.createClass({
                         </div>
                         <div className="sidebar-view">
                             { 
-                                (function(obj){
-                                    if ( current_user.id ) {
+                                ((obj) => {
+                                    if ( current_user && current_user.id ) {
                                         return (
                                             <div className="widget">
                                               <a className="button button--green">New Topic</a>
                                             </div>
                                         );
                                     }
-                                }(this)) 
+                                })(this) 
                             }
                             <div className="site-sidebar"></div>
                         </div>

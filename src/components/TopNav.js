@@ -1,58 +1,52 @@
-var React = require('react');
-var Reflux = require('reflux');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var Logo = require('./Logo');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
-var UserSessionActions = require('../actions/UserSessionActions');
-var UserNotificationsStore = require('../stores/UserNotificationsStore');
-var ShowOverlayStore = require('../stores/ShowOverlayStore');
-var UserAvatar = require('./UserAvatar');
-var UserNotifications = require('./UserNotifications');
-var Overlay = require('./Overlay');
-var Dropdown = require('./Dropdown');
+import React from 'react';
+import Reflux from 'reflux';
+import {ReactRouter, Link} from 'react-router';
+import Logo from './Logo';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
+import UserSessionActions from '../actions/UserSessionActions';
+import UserNotificationsStore from '../stores/UserNotificationsStore';
+import ShowOverlayStore from '../stores/ShowOverlayStore';
+import UserAvatar from './UserAvatar';
+import UserNotifications from './UserNotifications';
+import Overlay from './Overlay';
+import Dropdown from './Dropdown';
 
 var TopNav = React.createClass({
     mixins: [
         Reflux.connect(UserNotificationsStore, "notifications"),
         Reflux.connect(ShowOverlayStore, "showNotifications")
     ],
-    getInitialState: function() {
+    contextTypes: {
+        current_user: React.PropTypes.object
+    },
+    getInitialState() {
         return {
             showUserDropdown: false,
         };
     },
-    propTypes: {
-        current_user: React.PropTypes.shape().isRequired,
-    },
-    getDefaultProps: function() {
-        return {
-            current_user: {},
-        };
-    },
-    handleClose: function(e) {
+    handleClose(e) {
         this.setState({showUserDropdown:false});
     },
-    handleChoose: function(e) {
+    handleChoose(e) {
         this.setState({showUserDropdown:false});
     },
-    handleShowLogin: function() {
+    handleShowLogin() {
         ShowOverlayActions.showLogin(true);
     },
-    handleShowNotifications: function(e) {
+    handleShowNotifications(e) {
         e.preventDefault();
         ShowOverlayActions.showNotifications(true);
     },
-    viewUserDropdown: function(e) {
+    viewUserDropdown(e) {
         e.preventDefault();
         this.setState({showUserDropdown:true});
     },
-    handleLogout: function(e) {
+    handleLogout(e) {
         e.preventDefault();
         UserSessionActions.logout();
     },
-    render: function() {
-        var current_user = this.props.current_user;
+    render() {
+        var current_user = this.context.current_user;
         var notifications = this.state.notifications;
         var nav;
         if (!current_user.username) {
@@ -66,14 +60,14 @@ var TopNav = React.createClass({
                 <ul className="nav clearfix">
                     <li>
                         { 
-                            (function(obj){
+                            ((obj) => {
                                 if ( notifications.length ) {
                                     return <Link className="tip notification" to="/" onClick={ obj.handleShowNotifications } aria-label={ "You have " + notifications.length + " unread notifications" }></Link>;
                                 }
-                            }(this))
+                            })(this)
                         }
                         { 
-                            (function(obj){
+                            ((obj) => {
                                 if ( obj.state.showNotifications && current_user.id ) {
                                     return (
                                         <Overlay>
@@ -81,13 +75,13 @@ var TopNav = React.createClass({
                                         </Overlay>
                                     );
                                 }
-                            }(this))
+                            })(this)
                         }
                     </li>
                     <li>
                         <UserAvatar user={ current_user } onClick={ this.viewUserDropdown } />
                         { 
-                            (function(obj){
+                            ((obj) => {
                                 if ( obj.state.showUserDropdown ) {
                                     return (
                                         <Dropdown handleClose={obj.handleClose} handleChoose={obj.handleChoose} >
@@ -98,7 +92,7 @@ var TopNav = React.createClass({
                                         </Dropdown>
                                     );
                                 }
-                            }(this))
+                            })(this)
                         }
                     </li>
                 </ul>

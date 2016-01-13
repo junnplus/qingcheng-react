@@ -1,8 +1,8 @@
-var React = require('react');
-var UserAvatar = require('./UserAvatar');
+import React from 'react';
+import UserAvatar from './UserAvatar';
 
 var UserHeader = React.createClass({
-    render: function() {
+    render() {
 		var user = this.props.user;
         return (
             <div className="item-container container">

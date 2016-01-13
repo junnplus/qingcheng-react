@@ -1,17 +1,17 @@
-var React = require('react');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
+import React from 'react';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
 
 var Overlay = React.createClass({
-    componentDidMount: function() {
+    componentDidMount() {
         document.body.className = 'no-scroll';
     },
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         document.body.className = '';
     },
-    handleHiddenLogin: function() {
+    handleHiddenLogin() {
         ShowOverlayActions.showLogin(false);
     },
-    render: function() {
+    render() {
         return (
             <div className="overlay">
                 <div className="overlay-mask" onClick={this.handleHiddenLogin}></div>

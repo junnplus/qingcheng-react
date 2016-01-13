@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
 var ShareButton = React.createClass({
-    render: function() {
+    render() {
         return (
             <span className="share-buttons">
                 <button className="button button--white tip" aria-label="Share to Weibo">

@@ -1,9 +1,8 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var UserAvatar = require('./UserAvatar');
-var TopicCafe = require('./TopicCafe');
-var timeago = require('../filters').timeago;
+import React from 'react';
+import {ReactRouter, Link} from 'react-router';
+import UserAvatar from './UserAvatar';
+import TopicCafe from './TopicCafe';
+import {timeago} from '../filters';
 
 var TopicItem = React.createClass({
     propTypes: {
@@ -12,7 +11,7 @@ var TopicItem = React.createClass({
             title: React.PropTypes.string.isRequired
         }).isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             topic: {
                 id: null,
@@ -20,13 +19,13 @@ var TopicItem = React.createClass({
             }
         };
     },
-    render: function() {
+    render() {
         var topic = this.props.topic;
         var cafes;
         if (topic.cafes) {
-            cafes = this.props.topic.cafes.map(function(item){
+            cafes = this.props.topic.cafes.map((item) => {
                 return <TopicCafe key={item.id} cafe={item} />;
-            }.bind(this));
+            });
         }
         var viewCount, likeCount, commentCount;
         if ( topic.view_count ) {

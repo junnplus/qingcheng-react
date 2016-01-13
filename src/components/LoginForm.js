@@ -1,9 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var UserSessionActions = require('../actions/UserSessionActions');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import UserSessionActions from '../actions/UserSessionActions';
 
 var LoginForm = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {
             username: "",
             password: "",
@@ -12,18 +12,18 @@ var LoginForm = React.createClass({
             permanent: true,
         };
     },
-    handleShowLoginTab: function() {
+    handleShowLoginTab() {
         this.setState({LoginTab: true});
     },
-    handleShowSignupTab: function() {
+    handleShowSignupTabxxxxxxxxxx() {
         this.setState({LoginTab: false});
     },
-    handleChange: function(e) {
+    handleChange(e) {
         var newState = {};
         newState[e.target.name] = e.target.name === "permanent" ? e.target.checked : e.target.value;
         this.setState(newState);
     },
-    handleLogin: function(e) {
+    handleLogin(e) {
         e.preventDefault();
         var data = {
             username : this.state.username,
@@ -32,10 +32,10 @@ var LoginForm = React.createClass({
         };
         UserSessionActions.login(data);
     },
-    handleSignup: function(e) {
+    handleSignup(e) {
         e.preventDefault();
     },
-    render: function() {
+    render() {
         return (
             <div className="login-form">
                 <div className="login-tab clearfix">
@@ -68,7 +68,7 @@ var LoginForm = React.createClass({
                   </div>
                 </form>
                 {
-                    (function(obj){
+                    ((obj) => {
                         if ( obj.state.LoginTab ) {
                             return (
                                 <div className="login-social">
@@ -81,7 +81,7 @@ var LoginForm = React.createClass({
                                 </div>
                             );
                         }
-                    }(this))
+                    })(this)
                 }
             </div>
         );

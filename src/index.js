@@ -1,9 +1,7 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
-var history = require('./history');
-
-var routes = require('./routes');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {ReactRouter, Router} from 'react-router';
+import history from './history';
+import routes from './routes';
 
 ReactDOM.render(<Router history={history} routes={routes}></Router>, document.getElementById('qingcheng'));

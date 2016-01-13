@@ -1,20 +1,20 @@
-var React = require('react');
-var CafeCardItem = require('./CafeCardItem');
-var Logo = require('./Logo');
+import React from 'react';
+import CafeCardItem from './CafeCardItem';
+import Logo from './Logo';
 
 var CafeCardList = React.createClass({
     propTypes: {
         cafes: React.PropTypes.array.isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             cafes: []
         };
     },
-    render: function() {
-        var cafes = this.props.cafes.map(function(item){
+    render() {
+        var cafes = this.props.cafes.map((item) => {
             return <CafeCardItem key={item.id} cafe={item} />;
-        }.bind(this));
+        });
         return (
             <div className="cafe-cards clearfix">
                 { cafes }

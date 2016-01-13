@@ -1,19 +1,18 @@
-var React = require('react');
-var UserAvatar = require('./UserAvatar');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
+import React from 'react';
+import UserAvatar from './UserAvatar';
+import {ReactRouter, Link} from 'react-router';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
 
 var NoticeItem = React.createClass({
     propTypes: {
         notice: React.PropTypes.shape().isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             notice: {},
         };
     },
-    message: function(t) {
+    message(t) {
         var categories = {
           	comment: 'commented on your topic',
           	like_comment: 'liked your comment',
@@ -22,10 +21,10 @@ var NoticeItem = React.createClass({
         };
         return categories[t] || t;
     },
-    handleViewNotice: function() {
+    handleViewNotice() {
         ShowOverlayActions.showNotifications(false);
     },
-    render: function() {
+    render() {
 		var notice = this.props.notice;
         return (
             <div className="item-container">

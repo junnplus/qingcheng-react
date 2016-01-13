@@ -1,6 +1,6 @@
-var React = require('react');
-var urlize = require('../filters').urlize;
-var UserAvatar = require('./UserAvatar');
+import React from 'react';
+import {urlize} from '../filters';
+import UserAvatar from './UserAvatar';
 
 var CafeCardItem = React.createClass({
     propTypes: {
@@ -9,7 +9,7 @@ var CafeCardItem = React.createClass({
             description: React.PropTypes.string.isRequired
         }).isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             cafe: {
                 slug: null,
@@ -17,7 +17,7 @@ var CafeCardItem = React.createClass({
             },
         };
     },
-    color: function() {
+    color() {
         var style = this.props.cafe.style;
         var rv = {};
         if (style.color) {
@@ -28,7 +28,7 @@ var CafeCardItem = React.createClass({
         }
         return rv;
     },
-    render: function() {
+    render() {
 		var cafe = this.props.cafe;
         return (
             <div id={ "c-" + cafe.slug } className="cafe-card card">
@@ -38,11 +38,11 @@ var CafeCardItem = React.createClass({
                     </div>
                 </a>
                 {
-                    (function(obj){
+                    ((obj) => {
                         if ( cafe.user ) {
                             return <UserAvatar user={ cafe.user }  clazz="small circle" />;
                         }
-                    }(this))
+                    })(this)
                 }
                 <div className="card-footer">
                     <div className="card-description">{ cafe.description ? urlize(cafe.description) : "No description" }</div>

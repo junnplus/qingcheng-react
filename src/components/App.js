@@ -1,37 +1,43 @@
-var React = require('react');
-var Reflux = require('reflux');
-var ReactRouter = require('react-router');
-var RouteHandler = ReactRouter.RouteHandler;
-var Overlay = require('./Overlay');
-var LoginForm = require('./LoginForm');
-var ShowOverlayStore = require('../stores/ShowOverlayStore');
-var UserStore = require('../stores/UserStore');
-var UserSessionStore = require('../stores/UserSessionStore');
-var UserSessionActions = require('../actions/UserSessionActions');
-var Footer = require('./Footer');
-
-var TopNav = require('./TopNav');
+import React from 'react';
+import Reflux from 'reflux';
+import {ReactRouter, RouteHandler} from 'react-router';
+import Overlay from './Overlay';
+import LoginForm from './LoginForm';
+import ShowOverlayStore from '../stores/ShowOverlayStore';
+import UserStore from '../stores/UserStore';
+import UserSessionStore from '../stores/UserSessionStore';
+import UserSessionActions from '../actions/UserSessionActions';
+import Footer from './Footer';
+import TopNav from './TopNav';
 
 var App = React.createClass({
     mixins: [
         Reflux.connect(ShowOverlayStore, "showLogin"),
         Reflux.connect(UserSessionStore, "current_user")
     ],
-    componentDidMount: function() {
+    childContextTypes: {
+        current_user: React.PropTypes.object.isRequired
+    },
+    getChildContext() {
+        return {
+            current_user: this.state.current_user
+        };
+    },
+    componentDidMount() {
         UserSessionActions.fetchCurrentUser();
     },
-    render: function() {
+    render() {
         var current_user = this.state.current_user;
         return (
             <div>
-                <TopNav current_user={current_user} />
-                { React.cloneElement(this.props.children, {current_user: current_user}) }
+                <TopNav />
+                { this.props.children }
                 <Footer />
                 {
-                    (function(obj){
-                        if (obj.state.showLogin && !current_user.id )
+                    ((obj) => {
+                        if (obj.state.showLogin && !current_user.username )
                             return <Overlay><LoginForm /></Overlay>;
-                    }(this))
+                    })(this)
                 }
             </div>
         );

@@ -1,12 +1,12 @@
-var Reflux = require('reflux');
-var TopicActions = require('../actions/TopicActions');
-var FetchActions = require('../actions/FetchActions');
-var api = require('../api');
-var history = require('../history');
+import Reflux from 'reflux';
+import TopicActions from '../actions/TopicActions';
+import FetchActions from '../actions/FetchActions';
+import api from '../api';
+import history from '../history';
 
 var TopicStore = Reflux.createStore({
     listenables: TopicActions,
-    getInitialState: function() {
+    getInitialState() {
         this.topic = {
                 title: '',
                 user: {},
@@ -16,37 +16,37 @@ var TopicStore = Reflux.createStore({
 			};
         return this.topic;
     },
-    onLoad: function(tid, cb) {
-        api.topic.view(tid, function(resp) {
+    onLoad(tid, cb) {
+        api.topic.view(tid, (resp) => {
 			this.topic = resp;
             this.trigger(this.topic);
             FetchActions.fetching(false);
             cb && cb();
-        }.bind(this));
+        });
     },
-    onViewRaw: function(tid) {
-        api.topic.viewRaw(tid, function(resp) {
+    onViewRaw(tid) {
+        api.topic.viewRaw(tid, (resp) => {
 			this.topic = resp;
             this.trigger(this.topic);
-        }.bind(this));
+        });
     },
-    onLike: function(tid) {
-        api.topic.like(tid, function() {
+    onLike(tid) {
+        api.topic.like(tid, () => {
             this.topic.liked_by_me = true;
             this.trigger(this.topic);
-        }.bind(this));
+        });
     },
-	onUnlike: function(tid) {
-        api.topic.unlike(tid, function() {
+	onUnlike(tid) {
+        api.topic.unlike(tid, () => {
             this.topic.liked_by_me = false;
             this.trigger(this.topic);
-        }.bind(this));
+        });
 	},
-    onUpdate: function(tid, payload) {
-        api.topic.update(tid, payload, function(){
+    onUpdate(tid, payload) {
+        api.topic.update(tid, payload, () => {
             history.pushState(null, '/t/' + tid);
         });
     }
 });
 
-module.exports = TopicStore;
+export default TopicStore;

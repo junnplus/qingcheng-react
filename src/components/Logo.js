@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
 var Logo = React.createClass({
-    render: function() {
+    render() {
 		return (
         <div className={ "logo " + this.props.clazz}>
             <div><span className="left-yellow"></span><span className="right-green"></span></div>

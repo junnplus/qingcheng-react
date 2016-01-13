@@ -1,18 +1,18 @@
-var React = require('react');
-var Reflux = require('reflux');
-var CafeStore = require('../stores/CafeStore');
-var CafeActions = require('../actions/CafeActions');
-var TopicForm = require('./TopicForm');
+import React from 'react';
+import Reflux from 'reflux';
+import CafeStore from '../stores/CafeStore';
+import CafeActions from '../actions/CafeActions';
+import TopicForm from './TopicForm';
 
 var TopicCreatePage = React.createClass({
     mixins: [
         Reflux.connect(CafeStore, "cafe"),
     ],
-    componentDidMount: function(){
+    componentDidMount(){
         var slug = this.props.params.slug;
         CafeActions.load(slug); 
     },
-    render: function() {
+    render() {
         var cafe = this.state.cafe;
         var current_user = this.state.current_user;
         return (
