@@ -1,20 +1,20 @@
-var Reflux = require('reflux');
-var CafeActions = require('../actions/CafeActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import CafeActions from '../actions/CafeActions';
+import api from '../api';
 
 var CafeStore = Reflux.createStore({
     listenables: CafeActions,
-	getInitialState: function() {
+	getInitialState() {
         this.cafe = {};
         return this.cafe;
 	},
-    onLoad: function(slug, cb) {
-		api.cafe.view(slug, function(resp) {
+    onLoad(slug, cb) {
+		api.cafe.view(slug, (resp) => {
 			this.cafe = resp;
             this.trigger(this.cafe);
             cb && cb();
-		}.bind(this));
+		});
     },
 });
 
-module.exports = CafeStore;
+export default CafeStore;

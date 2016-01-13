@@ -1,19 +1,17 @@
-var Reflux = require('reflux');
-var FollowingCafesActions = require('../actions/FollowingCafesActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import FollowingCafesActions from '../actions/FollowingCafesActions';
+import api from '../api';
 
 var FollowingCafesStore = Reflux.createStore({
-    init: function() {
-        this.listenToMany(FollowingCafesActions);
-    },
-	getInitialState: function() {
+    listenables: FollowingCafesActions,
+	getInitialState() {
         this.following = [];
         return this.following;
 	},
-    onFollowing: function(following) {
+    onFollowing(following) {
         this.following = following;
         this.trigger(this.following);
     },
 });
 
-module.exports = FollowingCafesStore;
+export default FollowingCafesStore;

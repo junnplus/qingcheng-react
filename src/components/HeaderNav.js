@@ -1,9 +1,8 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
+import React from 'react';
+import {ReactRouter, Link} from 'react-router';
 
 var HeaderNav = React.createClass({
-    render: function() {
+    render() {
         var path = this.props.path;
         if ( path === 'home' ) {
             return (

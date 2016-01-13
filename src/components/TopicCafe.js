@@ -1,7 +1,6 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var logo = require('../filters').logo;
+import React from 'react';
+import {ReactRouter, Link} from 'react-router';
+import {logo} from '../filters';
 
 var TopicCafe = React.createClass({
     propTypes: {
@@ -11,7 +10,7 @@ var TopicCafe = React.createClass({
             description: React.PropTypes.string.isRequired
         }).isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             cafe: {
                 name: null,
@@ -20,7 +19,7 @@ var TopicCafe = React.createClass({
             },
         };
     },
-    render: function() {
+    render() {
         var cafe = this.props.cafe;
         return (
             <span className="topic-cafe">

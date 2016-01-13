@@ -1,12 +1,12 @@
-var React = require('react');
+import React from 'react';
 
 var Footer = React.createClass({
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             year: new Date().getFullYear()
         };
     },
-    render: function() {
+    render() {
         return (
             <div className="footer">
                 <div className="container">

@@ -1,20 +1,20 @@
-var Reflux = require('reflux');
-var UserActions = require('../actions/UserActions');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import UserActions from '../actions/UserActions';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
+import api from '../api';
 
 var UserStore = Reflux.createStore({
     listenables: UserActions,
-    getInitialState: function() {
+    getInitialState() {
         this.user = {};
         return this.user;
     },
-    onFetchUser: function(username) {
-        api.user.profile(username, function(resp) {
+    onFetchUser(username) {
+        api.user.profile(username, (resp) => {
             this.user = resp;
             this.trigger(this.user);
-        }.bind(this));
+        });
     }
 });
 
-module.exports = UserStore;
+export default UserStore;

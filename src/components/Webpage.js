@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
 var Webpage = React.createClass({
-    render: function() {
+    render() {
 		var webpage = this.props.webpage;
         return (
             <section className="webpage">

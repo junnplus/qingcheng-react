@@ -1,29 +1,29 @@
-var Reflux = require('reflux');
-var TimelineActions = require('../actions/TimelineActions');
-var FetchActions = require('../actions/FetchActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import TimelineActions from '../actions/TimelineActions';
+import FetchActions from '../actions/FetchActions';
+import api from '../api';
 
 var TimelineStore = Reflux.createStore({
     listenables: TimelineActions,
-	getInitialState: function () {
+	getInitialState() {
         this.topics = [];
         this.cursor = 0;
         return this.topics;
     },
-    onFetchTimeline: function(params) {
+    onFetchTimeline(params) {
         params = params || {};
         params.cursor = this.cursor ? this.cursor : 0;
-		api.timeline(params, function(resp) {
+		api.timeline(params, (resp) => {
 			this.topics = this.topics.concat(resp.data);
             this.cursor = resp.cursor;
             this.trigger(this.topics);
             FetchActions.fetching(false);
-        }.bind(this));
+        });
     },
-    onResetTimeline: function() {
+    onResetTimeline() {
         this.topics = [];
         this.cursor = 0;
     },
 });
 
-module.exports = TimelineStore;
+export default TimelineStore;

@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
 var Dropdown = React.createClass({
-    render: function() {
+    render() {
         return (
             <div className="dropdown">
                 <div className="dropdown-mask" onClick={ this.props.handleClose }></div>

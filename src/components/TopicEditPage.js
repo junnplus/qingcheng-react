@@ -1,25 +1,25 @@
-var React = require('react');
-var Reflux = require('reflux');
-var TopicActions = require('../actions/TopicActions');
-var TopicStore = require('../stores/TopicStore');
-var TopicForm = require('./TopicForm');
+import React from 'react';
+import Reflux from 'reflux';
+import TopicActions from '../actions/TopicActions';
+import TopicStore from '../stores/TopicStore';
+import TopicForm from './TopicForm';
 
 var TopicEditPage = React.createClass({
     mixins: [
         Reflux.connect(TopicStore, "topic"),
     ],
-    componentDidMount: function(){
+    componentDidMount(){
         var tid = this.props.params.tid;
         TopicActions.viewRaw(tid);
     },
-    render: function() {
+    render() {
 		var topic = this.state.topic;
         var cafe = topic.cafes[0];
         var current_user = this.state.current_user;
         return (
             <div className="fullpage">
                 {
-                    (function(){
+                    (() => {
                         if (topic.id) {
                             return (
                                 <div className="container">
@@ -27,7 +27,7 @@ var TopicEditPage = React.createClass({
                                 </div>
                             );
                         }
-                    }(this))
+                    })(this)
                 }
             </div>
         );

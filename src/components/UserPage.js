@@ -1,24 +1,24 @@
-var React = require('react');
-var Reflux = require('reflux');
-var Header = require('./Header');
-var UserActions = require('../actions/UserActions');
-var UserStore = require('../stores/UserStore');
-var TopicList = require('./TopicList');
-var TopicsActions = require('../actions/TopicsActions');
-var TopicsStore = require('../stores/TopicsStore');
-var urlize = require('../filters').urlize;
+import React from 'react';
+import Reflux from 'reflux';
+import Header from './Header';
+import UserActions from '../actions/UserActions';
+import UserStore from '../stores/UserStore';
+import TopicList from './TopicList';
+import TopicsActions from '../actions/TopicsActions';
+import TopicsStore from '../stores/TopicsStore';
+import {urlize} from '../filters';
 
 var UserPage = React.createClass({
     mixins: [
         Reflux.connect(UserStore, "user"),
         Reflux.connect(TopicsStore, "topics"),
     ],
-    componentDidMount: function() {
+    componentDidMount() {
         var username = this.props.params.username;
 		UserActions.fetchUser(username);
         TopicsActions.fetchUserTopics(username);
     },
-    render: function() {
+    render() {
         var user = this.state.user;
         return (
             <div className="user-view">

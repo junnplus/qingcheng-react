@@ -1,35 +1,34 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var timeago = require('../filters').timeago;
-var UserAvatar = require('./UserAvatar');
-var CommentsActions = require('../actions/CommentsActions');
+import React from 'react';
+import {ReactRouter, Link} from 'react-router';
+import {timeago} from '../filters';
+import UserAvatar from './UserAvatar';
+import CommentsActions from '../actions/CommentsActions';
 
 var CommentItem = React.createClass({
-    getInitialState: function () {
+    getInitialState () {
         return {
             isHide: false
         };
     },
-    isOwner: function() {
+    isOwner() {
         return this.props.current_user.id === this.props.comment.user.id;
     },
-    handleToggleLike: function() {
+    handleToggleLike() {
         var comment = this.props.comment;
         if (comment.liked_by_me) {
         } else {
         }
     },
-    handleFlagComment: function() {
+    handleFlagComment() {
         if (confirm('Are you sure to report this comment?')) {
         }
     },
-    handleDeleteComment: function() {
+    handleDeleteComment() {
         if (confirm('Are you sure to delete this comment?')) {
             CommentsActions.deleteTopicComment(this.props.comment.topic_id, this.props.comment.id);
         }
     },
-    render: function() {
+    render() {
         var comment = this.props.comment;
         var user = comment.user;
         return (
@@ -42,32 +41,32 @@ var CommentItem = React.createClass({
                         #{ comment.id }
                         <div className="comment-actions">
                             { 
-                                (function(obj){
+                                ((obj) => {
                                     if ( comment.like_count ) {
                                         return <span>{ comment.like_count } likes</span>;
                                     }
-                                }(this))
+                                })(this)
                             }
                             {
-                                (function(obj){
+                                ((obj) => {
                                     if ( !obj.isOwner() ) {
                                         return <a className="tip tip-west like-comment" onClick={ obj.handleToggleLike } role="button" aria-label="like this comment"><i className="qc-icon-heart"></i></a>;
                                     }
-                                }(this))
+                                })(this)
                             }
                             {
-                                (function(obj){
+                                ((obj) => {
                                     if ( !obj.isOwner() ) {
                                         return <a role="button" aria-label="report spam" onClick={ obj.handleFlagComment } ><i className="qc-icon-flag"></i></a>;
                                     }
-                                }(this))
+                                })(this)
                             }
                             {
-                                (function(obj){
+                                ((obj) => {
                                     if ( obj.isOwner() ) {
                                         return <a role="button" aria-label="delete comment" onClick={ obj.handleDeleteComment } ><i className="qc-icon-bin"></i></a>;
                                     }
-                                }(this))
+                                })(this)
                             }
                         </div>
                     </div>

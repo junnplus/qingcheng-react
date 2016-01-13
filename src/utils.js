@@ -1,4 +1,4 @@
-exports.escape = function(html) {
+export function escape(html) {
   html = html || '';
   return html
   .replace(/&/g, '&amp;')
@@ -8,14 +8,14 @@ exports.escape = function(html) {
   .replace(/'/g, '&#39;');
 };
 
-exports.shake = function(el) {
+export function shake(el) {
   el.className = el.className + ' shake';
-  setTimeout(function() {
+  setTimeout(() => {
     el.className = el.className.replace(' shake', '');
   }, 650);
 };
 
-exports.errorMessage = function(formError) {
+export function errorMessage(formError) {
   for (var k in formError) {
     if (formError[k].length) {
       return formError[k][0];

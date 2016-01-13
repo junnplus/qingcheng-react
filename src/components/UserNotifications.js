@@ -1,15 +1,15 @@
-var React = require('react');
-var NoticeItem = require('./NoticeItem');
-var UserNotificationsActions = require('../actions/UserNotificationsActions');
+import React from 'react';
+import NoticeItem from './NoticeItem';
+import UserNotificationsActions from '../actions/UserNotificationsActions';
 
 var UserNotifications = React.createClass({
-    handleClearNotifications: function() {
+    handleClearNotifications() {
         UserNotificationsActions.clearNotifications();
     },
-    render: function() {
-		var notifications = this.props.notifications.map(function(item, index){
+    render() {
+		var notifications = this.props.notifications.map((item, index) => {
 			return <NoticeItem key={index} notice={item} />;
-		}.bind(this));
+		});
         return (
             <div className="notification-list">
                 <h2>Notifications</h2>

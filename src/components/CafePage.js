@@ -1,47 +1,49 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
-var Reflux = require('reflux');
-var Header = require('./Header');
-var CafeActions = require('../actions/CafeActions');
-var CafeStore = require('../stores/CafeStore');
-var FetchStore = require('../stores/FetchStore');
-var FetchActions = require('../actions/FetchActions');
-var urlize = require('../filters').urlize;
-var TopicList = require('./TopicList');
-var TopicsStore = require('../stores/TopicsStore');
-var TopicsActions = require('../actions/TopicsActions');
-var UserAvatar = require('./UserAvatar');
+import React from 'react';
+import {ReactRouter, Link} from 'react-router';
+import Reflux from 'reflux';
+import Header from './Header';
+import CafeActions from '../actions/CafeActions';
+import CafeStore from '../stores/CafeStore';
+import FetchStore from '../stores/FetchStore';
+import FetchActions from '../actions/FetchActions';
+import {urlize} from '../filters';
+import TopicList from './TopicList';
+import TopicsStore from '../stores/TopicsStore';
+import TopicsActions from '../actions/TopicsActions';
+import UserAvatar from './UserAvatar';
 
 var CafePage = React.createClass({
     mixins: [
         Reflux.connect(CafeStore, "cafe"),
         Reflux.connect(TopicsStore, "topics"),
     ],
-    componentDidMount: function() {
+    contextTypes: {
+        current_user: React.PropTypes.object
+    },
+    componentDidMount() {
         var slug = this.props.params.slug;
-        CafeActions.load(slug, function(){
+        CafeActions.load(slug, () => {
             TopicsActions.fetchCafeTopics(slug);
         });
     },
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps(nextProps) {
         var newSlug = nextProps.params.slug;
         var oldSlug = this.props.params.slug;
         if ( oldSlug !== newSlug ) {
             this.setState({topics: []});
             FetchActions.fetching(true);
-            CafeActions.load(newSlug, function(){
+            CafeActions.load(newSlug, () => {
                 TopicsActions.fetchCafeTopics(newSlug);
             });
         }
     },
-    canWrite: function() {
+    canWrite() {
         var permission = this.state.cafe.permission || {};
         return permission.write;
     },
-    render: function() {
+    render() {
+        var current_user = this.context.current_user;
         var cafe = this.state.cafe;
-        var current_user = this.props.current_user;
         return (
             <div className="cafe-view">
                 <Header title={cafe.name} description={urlize(cafe.description)} cafe={cafe} path="cafe" />
@@ -49,7 +51,7 @@ var CafePage = React.createClass({
                     <div className="split-view container">
                         <div className="main-view">
                         {
-                            (function(obj){
+                            ((obj) => {
                                 if (obj.canWrite()) {
                                     return (
                                         <div className="new-topic">
@@ -58,7 +60,7 @@ var CafePage = React.createClass({
                                         </div>
                                     );
                                 }
-                            }(this))
+                            })(this)
                         }
                         <TopicList slug={this.props.params.slug} topics={this.state.topics} />
                         </div>

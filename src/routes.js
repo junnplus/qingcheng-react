@@ -1,16 +1,14 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Route = ReactRouter.Route;
-var IndexRoute = ReactRouter.IndexRoute;
+import React from 'react';
+import {ReactRouter, Route, IndexRoute} from 'react-router';
 
-var App = require('./components/App');
-var HomePage = require('./components/HomePage');
-var TopicPage = require('./components/TopicPage');
-var TopicEditPage = require('./components/TopicEditPage');
-var TopicCreatePage = require('./components/TopicCreatePage');
-var CafesPage = require('./components/CafesPage');
-var CafePage = require('./components/CafePage');
-var UserPage = require('./components/UserPage');
+import App from './components/App';
+import HomePage from './components/HomePage';
+import TopicPage from './components/TopicPage';
+import TopicEditPage from './components/TopicEditPage';
+import TopicCreatePage from './components/TopicCreatePage';
+import CafesPage from './components/CafesPage';
+import CafePage from './components/CafePage';
+import UserPage from './components/UserPage';
 
 var routes = (
     <Route path="/" component={App}>
@@ -24,4 +22,4 @@ var routes = (
     </Route>
 );
 
-module.exports = routes;
+export default routes;

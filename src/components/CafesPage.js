@@ -1,11 +1,11 @@
-var React = require('react');
-var Reflux = require('reflux');
-var CafeCardList = require('./CafeCardList');
-var CafesStore = require('../stores/CafesStore');
-var CafesActions = require('../actions/CafesActions');
-var FetchStore = require('../stores/FetchStore');
-var FollowingCafesStore = require('../stores/FollowingCafesStore');
-var Logo = require('./Logo');
+import React from 'react';
+import Reflux from 'reflux';
+import CafeCardList from './CafeCardList';
+import CafesStore from '../stores/CafesStore';
+import CafesActions from '../actions/CafesActions';
+import FetchStore from '../stores/FetchStore';
+import FollowingCafesStore from '../stores/FollowingCafesStore';
+import Logo from './Logo';
 
 var CafesPage = React.createClass({
     mixins: [
@@ -13,21 +13,21 @@ var CafesPage = React.createClass({
         Reflux.connect(FetchStore, "fetching"),
         Reflux.connect(FollowingCafesStore, "following")
     ],
-    componentDidMount: function(){
+    componentDidMount(){
         CafesActions.fetchCafes();
     },
-    render: function() {
+    render() {
         return (
             <div className="body cafe-list">
                 { 
-                    (function(obj){
+                    ((obj) => {
                         if ( obj.state.fetching ) {
                             return <Logo clazz={ "loading center" } />;
                         }
-                    }(this))
+                    })(this)
                 }
                 {
-                    (function(obj){
+                    ((obj) => {
                         if ( obj.state.following.length ) {
                             return (
                                 <div className="section container">
@@ -36,7 +36,7 @@ var CafesPage = React.createClass({
                                 </div>
                             );
                         }
-                    }(this))
+                    })(this)
                 }
                 <div className="section container">
                     <h2 className="section-title">Cafes</h2>

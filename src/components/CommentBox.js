@@ -1,35 +1,44 @@
-var React = require('react');
-var CommentsActions = require('../actions/CommentsActions');
-var CommentItem = require('./CommentItem');
-var CommentForm = require('./CommentForm');
+import React from 'react';
+import CommentsActions from '../actions/CommentsActions';
+import CommentItem from './CommentItem';
+import CommentForm from './CommentForm';
 
 var CommentBox = React.createClass({
-    fetchComments: function() {
+    contextTypes: {
+        current_user: React.PropTypes.object
+    },
+    fetchComments() {
         CommentsActions.fetchTopicComments(this.props.topic.id);
     },
-    render: function() {
-        var current_user = this.props.current_user;
-        var comments = this.props.comments.map(function(item, index) {
+    render() {
+        var current_user = this.context.current_user;
+        var comments = this.props.comments.map((item, index) => {
             return <CommentItem key={index} comment={item} current_user={current_user} />;
-        }.bind(this));
-        var commentsLength = this.props.comments.length;
-        var commentsCount, commentList;
-        if ( commentsLength ) {
-            commentsCount = <div className="comment-list-header">{ commentsLength } responses</div>;
-            commentList = (
-                <ul>
-                    { comments }
-                    <li className="load-more" onClick={ this.fetchComments }>Load More</li>
-                </ul>
-            );
-        }
+        });
         return (
             <div className="entry-view comment-box">
-                <div className="container">
-                    <CommentForm topic={this.props.topic} current_user={current_user}/>
-                    { commentsCount }
-                    { commentList }
-                </div>
+            {
+                ((obj) => {
+                    if ( obj.props.comments.length ) {
+                        return (
+                            <div className="container">
+                                <CommentForm topic={this.props.topic} />
+                                <div className="comment-list-header">{ obj.props.comments.length } responses</div>
+                                <ul>
+                                    { comments }
+                                    <li className="load-more" onClick={ this.fetchComments }>Load More</li>
+                                </ul>
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <div className="container">
+                                <CommentForm topic={this.props.topic} />
+                            </div>
+                        )
+                    }
+                })(this)
+            }
             </div>
         );
     }

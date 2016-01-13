@@ -1,6 +1,5 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
+import React from 'react';
+import {ReactRouter, Link} from 'react-router';
 
 var UserAvatar = React.createClass({
     propTypes: {
@@ -9,7 +8,7 @@ var UserAvatar = React.createClass({
             avatar_url: React.PropTypes.string
         }).isRequired,
     },
-    getDefaultProps: function() {
+    getDefaultProps() {
         return {
             user: {
                 username: null,
@@ -17,7 +16,7 @@ var UserAvatar = React.createClass({
             },
         };
     },
-    render: function() {
+    render() {
         var user = this.props.user;
         var clazz = this.props.clazz ? this.props.clazz : "";
         return (

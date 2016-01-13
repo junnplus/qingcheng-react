@@ -1,19 +1,19 @@
-var Reflux = require('reflux');
-var MarkdownActions = require('../actions/MarkdownActions');
-var api = require('../api');
+import Reflux from 'reflux';
+import MarkdownActions from '../actions/MarkdownActions';
+import api from '../api';
 
 var MarkdownStore = Reflux.createStore({
     listenables: MarkdownActions,
-    getInitialState: function() {
+    getInitialState() {
         this.html = '';
         return this.html;
     },
-    onPreview: function(content) {
-        api.preview(content, function(html) {
+    onPreview(content) {
+        api.preview(content, (html) => {
           	this.html = html;
             this.trigger(this.html);
-        }.bind(this));
+        });
     }
 });
 
-module.exports = MarkdownStore;
+export default MarkdownStore;

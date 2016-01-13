@@ -1,20 +1,20 @@
-var Reflux = require('reflux');
-var ShowOverlayActions = require('../actions/ShowOverlayActions');
+import Reflux from 'reflux';
+import ShowOverlayActions from '../actions/ShowOverlayActions';
 
 var ShowOverlayStore = Reflux.createStore({
     listenables: ShowOverlayActions,
-    getInitialState: function() {
+    getInitialState() {
         this.show = false;
         return this.show;
     },
-    onShowLogin: function(show) {
+    onShowLogin(show) {
         this.show = show; 
         this.trigger(this.show);
     },
-    onShowNotifications: function(show) {
+    onShowNotifications(show) {
         this.show = show; 
         this.trigger(this.show);
     }
 });
 
-module.exports = ShowOverlayStore;
+export default ShowOverlayStore;
