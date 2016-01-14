@@ -14,12 +14,15 @@ var TopicPage = React.createClass({
     mixins: [
         Reflux.connect(TopicStore, "topic"),
         Reflux.connect(FetchStore, "fetching"),
-        Reflux.connect(CommentsStore, "comments")
+        Reflux.connect(CommentsStore)
     ],
+    fetchTopicComments() {
+        CommentsActions.fetchTopicComments(this.props.params.tid, this.state.cursor);
+    },
     componentDidMount() {
         var tid = this.props.params.tid;
         TopicActions.load(tid, () => {
-            CommentsActions.fetchTopicComments(tid);
+            this.fetchTopicComments();
         });
     },
     componentWillReceiveProps(nextProps) {
@@ -29,7 +32,7 @@ var TopicPage = React.createClass({
             this.setState({comments: []});
             FetchActions.fetching(true);
             TopicActions.load(newId, () => {
-                CommentsActions.fetchTopicComments(newId);
+                this.fetchTopicComments();
             });
         }
     },
@@ -51,7 +54,7 @@ var TopicPage = React.createClass({
                                 return ( 
                                     <div className="entry-view">
                                         <TopicHentry topic={ topic } />;
-                                        <CommentBox comments={ comments } topic={ topic } />;
+                                        <CommentBox comments={ comments } topic={ topic } cursor={ this.state.cursor } fetchTopicComments={ this.fetchTopicComments }/>;
                                     </div>
                                 )
                             }

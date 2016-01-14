@@ -5,31 +5,34 @@ import api from '../api';
 
 var CommentsStore = Reflux.createStore({
     listenables: CommentsActions,
-	getInitialState() {
-        this.comments = [];
-        this.cursor = 0;
-        return this.comments;
+    init() {
+        this.data = {
+            comments: [],
+            cursor: 0
+        }
     },
-    onFetchTopicComments(tid) {
-        var cursor = this.cursor ? this.cursor : 0;
+    getInitialState() {
+        return this.data;
+    },
+    onFetchTopicComments(tid, cursor) {
         api.topic.comments(tid, cursor, (resp) => {
-			this.comments = this.comments.concat(resp.data);
-            this.cursor = resp.cursor;
-            this.trigger(this.comments);
+            this.data.comments = this.data.comments.concat(resp.data);
+            this.data.cursor = resp.cursor;
+            this.trigger(this.data);
         });
     },
     onCreateTopicComment(tid, payload, cb) {
         api.comment.create(tid, payload, (resp) => {
-          	this.comments = [resp].concat(this.comments);
-            this.trigger(this.comments);
-			cb && cb();
+            this.data.comments = [resp].concat(this.data.comments);
+            this.trigger(this.data);
+            cb && cb();
         });
     },
     onDeleteTopicComment(tid, cid) {
-	  	api.comment.delete(tid, cid, () => {
-            this.comments = [];
+        api.comment.delete(tid, cid, () => {
+            this.data.comments = [];
             CommentsActions.fetchTopicComments(tid);
-	  	});
+        });
     }
 });
 

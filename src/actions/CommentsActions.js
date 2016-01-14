@@ -1,9 +1,9 @@
 var Reflux = require('reflux');
 
 var CommentsActions = Reflux.createActions([
-     'fetchTopicComments',
-     'createTopicComment',
-     'deleteTopicComment'
+    'fetchTopicComments',
+    'createTopicComment',
+    'deleteTopicComment',
 ]);
 
 module.exports = CommentsActions;

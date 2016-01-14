@@ -1,14 +1,12 @@
 import React from 'react';
 import CommentsActions from '../actions/CommentsActions';
+import CommentsStore from '../stores/CommentsStore';
 import CommentItem from './CommentItem';
 import CommentForm from './CommentForm';
 
 var CommentBox = React.createClass({
     contextTypes: {
         current_user: React.PropTypes.object
-    },
-    fetchComments() {
-        CommentsActions.fetchTopicComments(this.props.topic.id);
     },
     render() {
         var current_user = this.context.current_user;
@@ -26,7 +24,13 @@ var CommentBox = React.createClass({
                                 <div className="comment-list-header">{ obj.props.comments.length } responses</div>
                                 <ul>
                                     { comments }
-                                    <li className="load-more" onClick={ this.fetchComments }>Load More</li>
+                                    {
+                                        ((obj) => {
+                                            if (obj.props.cursor != 0) {
+                                                return <li className="load-more" onClick={ this.props.fetchTopicComments }>Load More</li>
+                                            }
+                                        })(this)
+                                    }
                                 </ul>
                             </div>
                         )
