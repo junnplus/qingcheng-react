@@ -6,14 +6,14 @@ export function escape(html) {
   .replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#39;');
-};
+}
 
 export function shake(el) {
   el.className = el.className + ' shake';
   setTimeout(() => {
     el.className = el.className.replace(' shake', '');
   }, 650);
-};
+}
 
 export function errorMessage(formError) {
   for (var k in formError) {
@@ -21,4 +21,4 @@ export function errorMessage(formError) {
       return formError[k][0];
     }
   }
-};
+}

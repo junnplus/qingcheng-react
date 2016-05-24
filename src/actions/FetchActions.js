@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var FetchActions = Reflux.createActions([
-    'fetching',
+  'fetching',
 ]);
 
 module.exports = FetchActions;

@@ -1,8 +1,8 @@
 var Reflux = require('reflux');
 
 var ShowOverlayActions = Reflux.createActions([
-    'showLogin',
-    'showNotifications'
+  'showLogin',
+  'showNotifications'
 ]);
 
 module.exports = ShowOverlayActions;

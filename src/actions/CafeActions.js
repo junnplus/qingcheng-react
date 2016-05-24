@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var CafeActions = Reflux.createActions([
-    'load',
+  'load',
 ]);
 
 module.exports = CafeActions;

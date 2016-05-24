@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var FollowingCafesActions = Reflux.createActions([
-    'following',
+  'following',
 ]);
 
 module.exports = FollowingCafesActions;

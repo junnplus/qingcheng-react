@@ -1,7 +1,7 @@
 var Reflux = require('reflux');
 
 var MarkdownActions = Reflux.createActions([
-    'preview',
+  'preview',
 ]);
 
 module.exports = MarkdownActions;

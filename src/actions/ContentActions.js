@@ -1,8 +1,8 @@
 var Reflux = require('reflux');
 
 var CommentActions = Reflux.createActions([
-    'uploadImage',
-    'sync'
+  'uploadImage',
+  'sync'
 ]);
 
 module.exports = CommentActions;

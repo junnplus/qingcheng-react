@@ -1,8 +1,8 @@
 var Reflux = require('reflux');
 
 var TimelineActions = Reflux.createActions([
-    'fetchTimeline',
-    'resetTimeline'
+  'fetchTimeline',
+  'resetTimeline'
 ]);
 
 module.exports = TimelineActions;
